@@ -1,19 +1,18 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#define NT 3 /// number of coeffs
-#define NB 8 /// number of bits
+#define NT 11 /// number of coeffs
+#define NB 10 /// number of bits
 
-const int b[NT]={8, 17, 8}; /// b array
-const int a[NT-1]={-147, 52}; /// a array
+const int b[NT]={-1, -7, -13, 32, 140, 203, 140, 32, -13, -7, -1}; /// b array
+//const int a[NT-1]={-147, 52}; /// a array
 
-/// Perform fixed point filtering assming direct form I
+/// Perform fixed point filtering assuming direct form I
 ///\param x is the new input sample
 ///\return the new output sample
 int myfilter(int x)
 {
   static int sx[NT]; /// x shift register
-  static int sy[NT-1]; /// y shift register
   static int first_run = 0; /// for cleaning shift registers
   int i; /// index
   int y; /// output sample
@@ -24,8 +23,7 @@ int myfilter(int x)
     first_run = 1;
     for (i=0; i<NT; i++)
       sx[i] = 0;
-    for (i=0; i<NT-1; i++)
-      sy[i] = 0;
+ 
   }
 
   /// shift and insert new sample in x shift register
@@ -38,15 +36,7 @@ int myfilter(int x)
   y = 0;
   for (i=0; i<NT; i++)
     y += (sx[i]*b[i]) >> (NB-1) ;
-  /// Auto regressive part
-  for (i=0; i<NT-1; i++)
-    y -= (sy[i]*a[i]) >> (NB-1);
 
-  /// update the y shift register
-  for (i=NT-2; i>0; i--)
-    sy[i] = sy[i-1];
-  sy[0] = y;
- 
   return y;
 }
 
