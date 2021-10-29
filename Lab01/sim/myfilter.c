@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 #define NT 11 /// number of coeffs
-#define NB 10 /// number of bits
+//#define NB 10 /// number of bits
+#define NB 14 /// number of bits (to truncate)
 
 const int b[NT]={-1, -7, -13, 32, 140, 203, 140, 32, -13, -7, -1}; /// b array
 //const int a[NT-1]={-147, 52}; /// a array
