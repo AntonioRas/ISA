@@ -26,6 +26,7 @@ module tb_fir();
     wire [9:0] B7_S;
     wire [9:0] B8_S;
     wire [9:0] B9_S;
+    wire [9:0] B10_S;
     wire END_SIM_S;
     
     clk_gen CG    (.END_SIM(END_SIM_S),
@@ -46,6 +47,7 @@ module tb_fir();
                    .B7(B7_S),
                    .B8(B8_S),
                    .B9(B9_S),
+                   .B10(B10_S),
                    .DIN(DIN_S));
                    
     myfir UUT     (.CLK(CLK_S),
@@ -61,7 +63,7 @@ module tb_fir();
                    .B6(B6_S),
                    .B7(B7_S),
                    .B8(B8_S),
-                   .B9(B9_S),
+                   .B10(B10_S),
                    .DOUT(DOUT_S),
                    .VOUT(VOUT_S));
                    

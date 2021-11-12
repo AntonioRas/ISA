@@ -2,8 +2,9 @@
 #include <stdlib.h>
 
 #define NT 11 /// number of coeffs
-//#define NB 10 /// number of bits
-#define NB 14 /// number of bits (to truncate)
+#define NB 10 /// number of bits
+#define RESIZE_COEFF 4 /// number of bits (to truncate) thd = -26.0257
+// +4 further bits to be truncated
 
 const int b[NT]={-1, -7, -13, 32, 140, 203, 140, 32, -13, -7, -1}; /// b array
 //const int a[NT-1]={-147, 52}; /// a array
@@ -36,7 +37,7 @@ int myfilter(int x)
   /// Moving average part
   y = 0;
   for (i=0; i<NT; i++)
-    y += (sx[i]*b[i]) >> (NB-1) ;
+    y += (sx[i]*b[i]) >> (NB + RESIZE_COEFF - 1) ;
 
   return y;
 }

@@ -8,7 +8,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
--- use ieee.std_logic_unsigned.all;
+use ieee.std_logic_unsigned.all;
 use ieee.std_logic_textio.all;
 
 library std;
@@ -32,6 +32,7 @@ entity signal_generator is
 		   b7: OUT std_logic_vector(9 downto 0);
 		   b8: OUT std_logic_vector(9 downto 0);
 		   b9: OUT std_logic_vector(9 downto 0);
+		  b10: OUT std_logic_vector(9 downto 0);
 		  Din: OUT std_logic_vector(9 downto 0));
 end signal_generator;
 
@@ -45,19 +46,20 @@ architecture beh of signal_generator is
 	begin
 	
 	-- b <= "signal"; 10 bit
-	b0 <= "0000000000";
-	b1 <= "0000000001";
-	b2 <= "0000000010";
-	b3 <= "0000000011";
-	b4 <= "0000000100";
-	b5 <= "0000000101";
-	b6 <= "0000000110";
-	b7 <= "0000000111";
-	b8 <= "0000001000";
-	b9 <= "0000001001";
+	b0 <= conv_std_logic_vector(-1,10);
+	b1 <= conv_std_logic_vector(-7,10);
+	b2 <= conv_std_logic_vector(-13,10);
+	b3 <= conv_std_logic_vector(32,10);
+	b4 <= conv_std_logic_vector(140,10);
+	b5 <= conv_std_logic_vector(203,10);
+	b6 <= conv_std_logic_vector(140,10);
+	b7 <= conv_std_logic_vector(32,10);
+	b8 <= conv_std_logic_vector(-13,10);
+	b9 <= conv_std_logic_vector(-7,10);
+	b10 <= conv_std_logic_vector(-1,10);
 	
 	dataProcess: process (clk, rst)
-	                 file fp : text open READ_MODE is "../path_to/samples.txt";
+	                 file fp : text open READ_MODE is "./samples.txt";
 	                 variable line_in : line;
 	                 variable x : integer;
 		         begin
