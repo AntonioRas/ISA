@@ -130,7 +130,7 @@ begin
     
     end generate reg_mult_adder_gen;
 
-    dout_reg : reg generic map(NBIT) port map(clk, rst_n, vin, adder_out(N-1), dout );
+    dout_reg : reg generic map(NBIT) port map(clk, rst_n, vin_reg_out, adder_out(N-1), dout );
 
 
     -- Gestione Vin e validazione dell'output
@@ -138,9 +138,5 @@ begin
     vin_reg : ffd port map(clk, rst_n, '1', vin, vin_reg_out);
 
     vout_reg : ffd port map(clk, rst_n, '1', vin_reg_out, vout);
-
-
-
-    
 
 end struct;

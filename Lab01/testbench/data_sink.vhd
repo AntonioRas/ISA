@@ -28,7 +28,7 @@ architecture beh of data_sink is
 begin
 
 sink_proc:  process (clk, rst) 
-                file res_fp : text open WRITE_MODE is "./resultsc.txt";
+                file res_fp : text open WRITE_MODE is "./results_hdl.txt";
                 variable line_out : line;
             begin
                 if rst = '0' then 

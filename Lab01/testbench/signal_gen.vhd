@@ -14,7 +14,7 @@ use ieee.std_logic_textio.all;
 library std;
 use std.textio.all;
 
-entity signal_generator is
+entity signal_gen is
 	port( -- from clk_gen.vhd
 		  clk:  IN std_logic;
 		  rst:  IN std_logic;
@@ -34,9 +34,9 @@ entity signal_generator is
 		   b9: OUT std_logic_vector(9 downto 0);
 		  b10: OUT std_logic_vector(9 downto 0);
 		  Din: OUT std_logic_vector(9 downto 0));
-end signal_generator;
+end signal_gen;
 
-architecture beh of signal_generator is 
+architecture beh of signal_gen is 
 
 	constant  t : time := 2 ns; -- T = 10 ns 
 	

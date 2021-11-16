@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 #define NT 11 /// number of coeffs
-#define NB 10 /// number of bits
-#define RESIZE_COEFF 4 /// number of bits (to truncate) thd = -26.0257
+#define NB 10 /// number of bits *** thd = -40.9311
+#define RESIZE_COEFF 1 /// number of bits (to truncate)
 // +4 further bits to be truncated
 
 const int b[NT]={-1, -7, -13, 32, 140, 203, 140, 32, -13, -7, -1}; /// b array

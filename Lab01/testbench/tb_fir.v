@@ -35,7 +35,7 @@ module tb_fir();
         
     signal_gen SM (.CLK(CLK_S),
                    .RST(RST_S),
-                   .VOUT(VIN_S),
+                   .VIN(VIN_S),
                    .END_SIM(END_SIM_S),
                    .B0(B0_S),
                    .B1(B1_S),
@@ -50,8 +50,8 @@ module tb_fir();
                    .B10(B10_S),
                    .DIN(DIN_S));
                    
-    myfir UUT     (.CLK(CLK_S),
-                   .RST(RST_S), 
+    FIR_filter UUT (.CLK(CLK_S),
+                   .RST_N(RST_S), 
                    .DIN(DIN_S),
                    .VIN(VIN_S),
                    .B0(B0_S),
@@ -63,14 +63,15 @@ module tb_fir();
                    .B6(B6_S),
                    .B7(B7_S),
                    .B8(B8_S),
+                   .B9(B9_S),
                    .B10(B10_S),
                    .DOUT(DOUT_S),
                    .VOUT(VOUT_S));
                    
     data_sink DS  (.CLK(CLK_S),
                    .RST(RST_S),
-                   .VIN(VOUT_S), 
-                   .DIN(DOUT_S));
+                   .VOUT(VOUT_S), 
+                   .DOUT(DOUT_S));
     
     
 endmodule

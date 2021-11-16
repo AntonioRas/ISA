@@ -11,7 +11,8 @@ vcom -93 -work ./work ../testbench/signal_gen.vhd
 vcom -93 -work ./work ../testbench/data_sink.vhd
 vlog -work ./work ../testbench/tb_fir.v
 
-#vsim work.tb_fir
+vsim work.tb_fir
 # simulate
 #add waves *
-#run 2450 ns
+source wave.do
+run 2450 ns
