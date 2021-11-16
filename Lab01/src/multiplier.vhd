@@ -21,7 +21,7 @@ begin
 	begin
 		res_ext := std_logic_vector(signed(a) * signed(b));
         -- Result needs to be truncated
-		res <= res_ext(2*NBIT-1 downto NBIT);
+		res <= res_ext(2*NBIT-2 downto NBIT-1);
 	end process comblogic;
 
 end beh;
