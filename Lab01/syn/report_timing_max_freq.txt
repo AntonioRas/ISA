@@ -1,0 +1,131 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : FIR_filter
+Version: O-2018.06-SP4
+Date   : Wed Nov 17 19:19:29 2021
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: blocks_i_2/q_reg[3]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: dout_reg/q_reg[9]
+            (rising edge-triggered flip-flop clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FIR_filter         5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  blocks_i_2/q_reg[3]/CK (DFFR_X1)                        0.00       0.00 r
+  blocks_i_2/q_reg[3]/QN (DFFR_X1)                        0.07       0.07 f
+  blocks_i_2/U2/ZN (INV_X1)                               0.09       0.16 r
+  blocks_i_2/q[3] (reg_NBIT10_10)                         0.00       0.16 r
+  mult_i_2/a[3] (multiplier_NBIT10_9)                     0.00       0.16 r
+  mult_i_2/mult_22/a[3] (multiplier_NBIT10_9_DW_mult_tc_0)
+                                                          0.00       0.16 r
+  mult_i_2/mult_22/U305/ZN (INV_X1)                       0.07       0.23 f
+  mult_i_2/mult_22/U343/Z (XOR2_X1)                       0.10       0.33 f
+  mult_i_2/mult_22/U340/ZN (OAI22_X1)                     0.07       0.40 r
+  mult_i_2/mult_22/U55/S (FA_X1)                          0.12       0.52 f
+  mult_i_2/mult_22/U283/ZN (NAND2_X1)                     0.03       0.55 r
+  mult_i_2/mult_22/U249/ZN (AND3_X1)                      0.06       0.61 r
+  mult_i_2/mult_22/U280/ZN (OAI222_X1)                    0.05       0.66 f
+  mult_i_2/mult_22/U242/ZN (AOI222_X1)                    0.11       0.77 r
+  mult_i_2/mult_22/U277/ZN (OAI222_X1)                    0.07       0.84 f
+  mult_i_2/mult_22/U251/ZN (NAND2_X1)                     0.04       0.88 r
+  mult_i_2/mult_22/U235/ZN (NAND3_X1)                     0.05       0.92 f
+  mult_i_2/mult_22/U239/ZN (NAND2_X1)                     0.04       0.96 r
+  mult_i_2/mult_22/U241/ZN (NAND3_X1)                     0.05       1.01 f
+  mult_i_2/mult_22/U258/ZN (NAND2_X1)                     0.04       1.05 r
+  mult_i_2/mult_22/U259/ZN (NAND3_X1)                     0.05       1.09 f
+  mult_i_2/mult_22/U264/ZN (NAND2_X1)                     0.04       1.13 r
+  mult_i_2/mult_22/U265/ZN (NAND3_X1)                     0.05       1.18 f
+  mult_i_2/mult_22/U246/ZN (NAND2_X1)                     0.04       1.21 r
+  mult_i_2/mult_22/U248/ZN (NAND3_X1)                     0.04       1.25 f
+  mult_i_2/mult_22/U7/S (FA_X1)                           0.14       1.39 r
+  mult_i_2/mult_22/product[13] (multiplier_NBIT10_9_DW_mult_tc_0)
+                                                          0.00       1.39 r
+  mult_i_2/res[4] (multiplier_NBIT10_9)                   0.00       1.39 r
+  adder_i_2/b[4] (adder_NBIT10_9)                         0.00       1.39 r
+  adder_i_2/add_26/B[4] (adder_NBIT10_9_DW01_add_0)       0.00       1.39 r
+  adder_i_2/add_26/U1_4/S (FA_X1)                         0.12       1.51 f
+  adder_i_2/add_26/SUM[4] (adder_NBIT10_9_DW01_add_0)     0.00       1.51 f
+  adder_i_2/sum[4] (adder_NBIT10_9)                       0.00       1.51 f
+  adder_i_3/a[4] (adder_NBIT10_8)                         0.00       1.51 f
+  adder_i_3/add_26/A[4] (adder_NBIT10_8_DW01_add_0)       0.00       1.51 f
+  adder_i_3/add_26/U1_4/CO (FA_X1)                        0.10       1.61 f
+  adder_i_3/add_26/U1_5/CO (FA_X1)                        0.09       1.70 f
+  adder_i_3/add_26/U1_6/CO (FA_X1)                        0.09       1.79 f
+  adder_i_3/add_26/U1_7/S (FA_X1)                         0.14       1.93 r
+  adder_i_3/add_26/SUM[7] (adder_NBIT10_8_DW01_add_0)     0.00       1.93 r
+  adder_i_3/sum[7] (adder_NBIT10_8)                       0.00       1.93 r
+  adder_i_4/a[7] (adder_NBIT10_7)                         0.00       1.93 r
+  adder_i_4/add_26/A[7] (adder_NBIT10_7_DW01_add_0)       0.00       1.93 r
+  adder_i_4/add_26/U1_7/S (FA_X1)                         0.12       2.05 f
+  adder_i_4/add_26/SUM[7] (adder_NBIT10_7_DW01_add_0)     0.00       2.05 f
+  adder_i_4/sum[7] (adder_NBIT10_7)                       0.00       2.05 f
+  adder_i_5/a[7] (adder_NBIT10_6)                         0.00       2.05 f
+  adder_i_5/add_26/A[7] (adder_NBIT10_6_DW01_add_0)       0.00       2.05 f
+  adder_i_5/add_26/U1_7/CO (FA_X1)                        0.10       2.15 f
+  adder_i_5/add_26/U1_8/S (FA_X1)                         0.14       2.29 r
+  adder_i_5/add_26/SUM[8] (adder_NBIT10_6_DW01_add_0)     0.00       2.29 r
+  adder_i_5/sum[8] (adder_NBIT10_6)                       0.00       2.29 r
+  adder_i_6/a[8] (adder_NBIT10_5)                         0.00       2.29 r
+  adder_i_6/add_26/A[8] (adder_NBIT10_5_DW01_add_0)       0.00       2.29 r
+  adder_i_6/add_26/U1_8/S (FA_X1)                         0.12       2.40 f
+  adder_i_6/add_26/SUM[8] (adder_NBIT10_5_DW01_add_0)     0.00       2.40 f
+  adder_i_6/sum[8] (adder_NBIT10_5)                       0.00       2.40 f
+  adder_i_7/a[8] (adder_NBIT10_4)                         0.00       2.40 f
+  adder_i_7/add_26/A[8] (adder_NBIT10_4_DW01_add_0)       0.00       2.40 f
+  adder_i_7/add_26/U1_8/CO (FA_X1)                        0.10       2.51 f
+  adder_i_7/add_26/U1_9/S (FA_X1)                         0.14       2.64 r
+  adder_i_7/add_26/SUM[9] (adder_NBIT10_4_DW01_add_0)     0.00       2.64 r
+  adder_i_7/sum[9] (adder_NBIT10_4)                       0.00       2.64 r
+  adder_i_8/a[9] (adder_NBIT10_3)                         0.00       2.64 r
+  adder_i_8/add_26/A[9] (adder_NBIT10_3_DW01_add_0)       0.00       2.64 r
+  adder_i_8/add_26/U1_9/S (FA_X1)                         0.12       2.76 f
+  adder_i_8/add_26/SUM[9] (adder_NBIT10_3_DW01_add_0)     0.00       2.76 f
+  adder_i_8/sum[9] (adder_NBIT10_3)                       0.00       2.76 f
+  adder_i_9/a[9] (adder_NBIT10_2)                         0.00       2.76 f
+  adder_i_9/add_26/A[9] (adder_NBIT10_2_DW01_add_0)       0.00       2.76 f
+  adder_i_9/add_26/U1_9/S (FA_X1)                         0.13       2.89 f
+  adder_i_9/add_26/SUM[9] (adder_NBIT10_2_DW01_add_0)     0.00       2.89 f
+  adder_i_9/sum[9] (adder_NBIT10_2)                       0.00       2.89 f
+  adder_i_10/a[9] (adder_NBIT10_1)                        0.00       2.89 f
+  adder_i_10/add_26/A[9] (adder_NBIT10_1_DW01_add_0)      0.00       2.89 f
+  adder_i_10/add_26/U1_9/S (FA_X1)                        0.14       3.03 r
+  adder_i_10/add_26/SUM[9] (adder_NBIT10_1_DW01_add_0)
+                                                          0.00       3.03 r
+  adder_i_10/sum[9] (adder_NBIT10_1)                      0.00       3.03 r
+  dout_reg/d[9] (reg_NBIT10_1)                            0.00       3.03 r
+  dout_reg/U22/ZN (NAND2_X1)                              0.03       3.06 f
+  dout_reg/U3/ZN (NAND2_X1)                               0.03       3.09 r
+  dout_reg/q_reg[9]/D (DFFR_X1)                           0.01       3.10 r
+  data arrival time                                                  3.10
+
+  clock my_clk (rise edge)                                3.20       3.20
+  clock network delay (ideal)                             0.00       3.20
+  clock uncertainty                                      -0.07       3.13
+  dout_reg/q_reg[9]/CK (DFFR_X1)                          0.00       3.13 r
+  library setup time                                     -0.03       3.10
+  data required time                                                 3.10
+  --------------------------------------------------------------------------
+  data required time                                                 3.10
+  data arrival time                                                 -3.10
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
