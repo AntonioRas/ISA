@@ -29,49 +29,49 @@ module tb_fir();
     wire [9:0] B10_S;
     wire END_SIM_S;
     
-    clk_gen CG    (.END_SIM(END_SIM_S),
-                   .CLK(CLK_S),
-                   .RST(RST_S));
+    clk_gen CG    (.end_sim(END_SIM_S),
+                   .clk(CLK_S),
+                   .rst(RST_S));
         
-    signal_gen SM (.CLK(CLK_S),
-                   .RST(RST_S),
-                   .VIN(VIN_S),
-                   .END_SIM(END_SIM_S),
-                   .B0(B0_S),
-                   .B1(B1_S),
-                   .B2(B2_S),
-                   .B3(B3_S),
-                   .B4(B4_S),
-                   .B5(B5_S),
-                   .B6(B6_S),
-                   .B7(B7_S),
-                   .B8(B8_S),
-                   .B9(B9_S),
-                   .B10(B10_S),
-                   .DIN(DIN_S));
+    signal_gen SM (.clk(CLK_S),
+                   .rst(RST_S),
+                   .vin(VIN_S),
+                   .end_sim(END_SIM_S),
+                   .b0(B0_S),
+                   .b1(B1_S),
+                   .b2(B2_S),
+                   .b3(B3_S),
+                   .b4(B4_S),
+                   .b5(B5_S),
+                   .b6(B6_S),
+                   .b7(B7_S),
+                   .b8(B8_S),
+                   .b9(B9_S),
+                   .b10(B10_S),
+                   .din(DIN_S));
                    
-    FIR_filter UUT (.CLK(CLK_S),
-                   .RST_N(RST_S), 
-                   .DIN(DIN_S),
-                   .VIN(VIN_S),
-                   .B0(B0_S),
-                   .B1(B1_S),
-                   .B2(B2_S),
-                   .B3(B3_S),
-                   .B4(B4_S),
-                   .B5(B5_S),
-                   .B6(B6_S),
-                   .B7(B7_S),
-                   .B8(B8_S),
-                   .B9(B9_S),
-                   .B10(B10_S),
-                   .DOUT(DOUT_S),
-                   .VOUT(VOUT_S));
+    FIR_filter UUT (.clk(CLK_S),
+                   .rst_n(RST_S), 
+                   .din(DIN_S),
+                   .vin(VIN_S),
+                   .b0(B0_S),
+                   .b1(B1_S),
+                   .b2(B2_S),
+                   .b3(B3_S),
+                   .b4(B4_S),
+                   .b5(B5_S),
+                   .b6(B6_S),
+                   .b7(B7_S),
+                   .b8(B8_S),
+                   .b9(B9_S),
+                   .b10(B10_S),
+                   .dout(DOUT_S),
+                   .vout(VOUT_S));
                    
-    data_sink DS  (.CLK(CLK_S),
-                   .RST(RST_S),
-                   .VOUT(VOUT_S), 
-                   .DOUT(DOUT_S));
+    data_sink DS  (.clk(CLK_S),
+                   .rst(RST_S),
+                   .vout(VOUT_S), 
+                   .dout(DOUT_S));
     
     
 endmodule
