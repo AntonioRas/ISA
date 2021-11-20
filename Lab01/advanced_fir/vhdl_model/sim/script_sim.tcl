@@ -3,7 +3,8 @@ vcom -93 -work ./work ../src/adder.vhd
 vcom -93 -work ./work ../src/ffd.vhd
 vcom -93 -work ./work ../src/reg.vhd
 vcom -93 -work ./work ../src/multiplier.vhd
-vcom -93 -work ./work ../src/FIR_unfolding_filter.vhd
+#vcom -93 -work ./work ../src/FIR_unfolding_filter.vhd
+vcom -93 -work ./work ../src/FIR_unfolding_pipeline_filter.vhd
 
 # compile the tb
 vcom -93 -work ./work ../testbench/clk_gen.vhd

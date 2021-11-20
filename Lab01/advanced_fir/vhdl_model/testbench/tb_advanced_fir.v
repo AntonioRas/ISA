@@ -62,7 +62,7 @@ module tb_advanced_fir();
                    .din1(DIN1_S), 
                    .din2(DIN2_S) );
                    
-FIR_unfolding_filter UUT (.clk(CLK_S),
+FIR_unfolding_pipeline_filter UUT (.clk(CLK_S),
                    .rst_n(RST_S), 
                    .din0(DIN0_S), 
                    .din1(DIN1_S), 
