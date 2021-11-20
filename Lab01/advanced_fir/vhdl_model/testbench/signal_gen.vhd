@@ -19,7 +19,9 @@ entity signal_gen is
 		  clk:  IN std_logic;
 		  rst:  IN std_logic;
 		  
-		  Vin: OUT std_logic;   -- to filter
+		  Vin0: OUT std_logic;   -- to filter
+		  Vin1: OUT std_logic;   -- to filter
+		  Vin2: OUT std_logic;   -- to filter
       end_sim: OUT std_logic;	-- to clk_gen	  
 		
 		   b0: OUT std_logic_vector(9 downto 0);      -- 10 is the number of bits of our filter
@@ -33,7 +35,9 @@ entity signal_gen is
 		   b8: OUT std_logic_vector(9 downto 0);
 		   b9: OUT std_logic_vector(9 downto 0);
 		  b10: OUT std_logic_vector(9 downto 0);
-		  Din: OUT std_logic_vector(9 downto 0));
+		 Din0: OUT std_logic_vector(9 downto 0);
+		 Din1: OUT std_logic_vector(9 downto 0);
+		 Din2: OUT std_logic_vector(9 downto 0));
 end signal_gen;
 
 architecture beh of signal_gen is 
@@ -64,18 +68,35 @@ architecture beh of signal_gen is
 	                 variable x : integer;
 		         begin
 			         if rst = '0' then           -- asynch reset (active low)
-			             Din <= (others => '0') after t;
-			             Vin <= '0' after t;
+			             Din0 <= (others => '0') after t;
+			             Vin0 <= '0' after t;
+						 Din1 <= (others => '0') after t;
+			             Vin1 <= '0' after t;
+						 Din2 <= (others => '0') after t;
+			             Vin2 <= '0' after t;
 			             end_sim_s <= '0';       -- 0 sim running; 1 sim ended
 			         elsif clk'event and clk = '1' then 
 			             if not endfile(fp) then
 			                 readline(fp, line_in);
 			                 read(line_in, x);
-			                 Din <= conv_std_logic_vector(x,10) after t;
-			                 vin <= '1' after t;
+			                 Din0 <= conv_std_logic_vector(x,10) after t;
+			                 vin0 <= '1' after t;
+
+							 readline(fp, line_in);
+			                 read(line_in, x);
+			                 Din1 <= conv_std_logic_vector(x,10) after t;
+			                 vin1 <= '1' after t;
+
+							 readline(fp, line_in);
+			                 read(line_in, x);
+			                 Din2 <= conv_std_logic_vector(x,10) after t;
+			                 vin2 <= '1' after t;
+
 			                 end_sim_s <= '0' after t;
 			             else
-			                 Vin <= '0' after t;
+			                 Vin0 <= '0' after t;
+							 Vin1 <= '0' after t;
+							 Vin2 <= '0' after t;
 			                 end_sim_s <= '1' after t;
 			             end if;
 			         end if;

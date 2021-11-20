@@ -19,8 +19,12 @@ entity data_sink is
 	port(
 		    clk : IN std_logic;
 		    rst : IN std_logic;
-		   Vout : IN std_logic;
-		   Dout : IN std_logic_vector (9 downto 0));
+		   Vout0 : IN std_logic;
+           Vout1 : IN std_logic;
+           Vout2 : IN std_logic;
+		   Dout0 : IN std_logic_vector (9 downto 0);
+           Dout1 : IN std_logic_vector (9 downto 0);
+           Dout2 : IN std_logic_vector (9 downto 0));
 end data_sink;
 
 architecture beh of data_sink is 
@@ -34,8 +38,16 @@ sink_proc:  process (clk, rst)
                 if rst = '0' then 
                     null;
                 elsif clk'event and clk = '1' then 
-                    if Vout = '1' then 
-                        write(line_out, conv_integer(signed(Dout)));
+                    if Vout0 = '1' then 
+                        write(line_out, conv_integer(signed(Dout0)));
+                        writeline(res_fp, line_out);
+                    end if;
+                    if Vout1 = '1' then 
+                        write(line_out, conv_integer(signed(Dout1)));
+                        writeline(res_fp, line_out);
+                    end if;
+                    if Vout2 = '1' then 
+                        write(line_out, conv_integer(signed(Dout2)));
                         writeline(res_fp, line_out);
                     end if;
                 end if;
