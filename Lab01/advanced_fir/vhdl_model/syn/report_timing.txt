@@ -1,0 +1,87 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : FIR_unfolding_pipeline_filter
+Version: O-2018.06-SP4
+Date   : Sat Nov 20 13:42:13 2021
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: x0_reg_out_0/q_reg[1]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: pipe0_mult_0/q_reg[9]
+            (rising edge-triggered flip-flop clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FIR_unfolding_pipeline_filter
+                     5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  x0_reg_out_0/q_reg[1]/CK (DFFR_X1)                      0.00       0.00 r
+  x0_reg_out_0/q_reg[1]/Q (DFFR_X1)                       0.10       0.10 r
+  x0_reg_out_0/q[1] (reg_NBIT10_48)                       0.00       0.10 r
+  U4/Z (BUF_X1)                                           0.04       0.14 r
+  mult_0_b0/a[1] (multiplier_NBIT10_32)                   0.00       0.14 r
+  mult_0_b0/mult_22/a[1] (multiplier_NBIT10_32_DW_mult_tc_0)
+                                                          0.00       0.14 r
+  mult_0_b0/mult_22/U237/Z (BUF_X1)                       0.11       0.25 r
+  mult_0_b0/mult_22/U252/ZN (XNOR2_X1)                    0.13       0.37 r
+  mult_0_b0/mult_22/U374/ZN (NAND2_X1)                    0.10       0.47 f
+  mult_0_b0/mult_22/U294/ZN (OAI22_X1)                    0.08       0.54 r
+  mult_0_b0/mult_22/U55/S (FA_X1)                         0.12       0.67 f
+  mult_0_b0/mult_22/U370/ZN (AOI222_X1)                   0.11       0.78 r
+  mult_0_b0/mult_22/U241/ZN (INV_X1)                      0.03       0.81 f
+  mult_0_b0/mult_22/U369/ZN (AOI222_X1)                   0.09       0.90 r
+  mult_0_b0/mult_22/U240/ZN (INV_X1)                      0.03       0.93 f
+  mult_0_b0/mult_22/U368/ZN (AOI222_X1)                   0.09       1.02 r
+  mult_0_b0/mult_22/U234/ZN (INV_X1)                      0.03       1.05 f
+  mult_0_b0/mult_22/U367/ZN (AOI222_X1)                   0.09       1.14 r
+  mult_0_b0/mult_22/U233/ZN (INV_X1)                      0.03       1.17 f
+  mult_0_b0/mult_22/U366/ZN (AOI222_X1)                   0.09       1.26 r
+  mult_0_b0/mult_22/U235/ZN (INV_X1)                      0.03       1.29 f
+  mult_0_b0/mult_22/U11/CO (FA_X1)                        0.09       1.38 f
+  mult_0_b0/mult_22/U10/CO (FA_X1)                        0.09       1.47 f
+  mult_0_b0/mult_22/U9/CO (FA_X1)                         0.09       1.56 f
+  mult_0_b0/mult_22/U8/CO (FA_X1)                         0.09       1.65 f
+  mult_0_b0/mult_22/U7/CO (FA_X1)                         0.09       1.74 f
+  mult_0_b0/mult_22/U6/CO (FA_X1)                         0.09       1.83 f
+  mult_0_b0/mult_22/U5/CO (FA_X1)                         0.09       1.92 f
+  mult_0_b0/mult_22/U4/CO (FA_X1)                         0.09       2.01 f
+  mult_0_b0/mult_22/U3/CO (FA_X1)                         0.09       2.10 f
+  mult_0_b0/mult_22/U265/Z (XOR2_X1)                      0.07       2.17 f
+  mult_0_b0/mult_22/U264/ZN (XNOR2_X1)                    0.06       2.23 f
+  mult_0_b0/mult_22/product[18] (multiplier_NBIT10_32_DW_mult_tc_0)
+                                                          0.00       2.23 f
+  mult_0_b0/res[9] (multiplier_NBIT10_32)                 0.00       2.23 f
+  pipe0_mult_0/d[9] (reg_NBIT10_44)                       0.00       2.23 f
+  pipe0_mult_0/U3/ZN (NAND2_X1)                           0.03       2.26 r
+  pipe0_mult_0/U2/ZN (OAI21_X1)                           0.03       2.29 f
+  pipe0_mult_0/q_reg[9]/D (DFFR_X1)                       0.01       2.29 f
+  data arrival time                                                  2.29
+
+  clock my_clk (rise edge)                                9.24       9.24
+  clock network delay (ideal)                             0.00       9.24
+  clock uncertainty                                      -0.07       9.17
+  pipe0_mult_0/q_reg[9]/CK (DFFR_X1)                      0.00       9.17 r
+  library setup time                                     -0.04       9.13
+  data required time                                                 9.13
+  --------------------------------------------------------------------------
+  data required time                                                 9.13
+  data arrival time                                                 -2.29
+  --------------------------------------------------------------------------
+  slack (MET)                                                        6.83
+
+
+1
