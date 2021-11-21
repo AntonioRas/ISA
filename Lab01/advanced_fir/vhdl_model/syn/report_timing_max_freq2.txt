@@ -1,0 +1,96 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : FIR_unfolding_pipeline2_filter
+Version: O-2018.06-SP4
+Date   : Sun Nov 21 03:17:54 2021
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: x0_reg_out_1/q_reg[1]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: pipe0_mult_3/q_reg[9]
+            (rising edge-triggered flip-flop clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FIR_unfolding_pipeline2_filter
+                     5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  x0_reg_out_1/q_reg[1]/CK (DFFR_X1)                      0.00       0.00 r
+  x0_reg_out_1/q_reg[1]/Q (DFFR_X1)                       0.12       0.12 r
+  x0_reg_out_1/q[1] (reg_NBIT10_65)                       0.00       0.12 r
+  mult_0_b3/a[1] (multiplier_NBIT10_29)                   0.00       0.12 r
+  mult_0_b3/mult_22/a[1] (multiplier_NBIT10_29_DW_mult_tc_0)
+                                                          0.00       0.12 r
+  mult_0_b3/mult_22/U324/Z (CLKBUF_X3)                    0.07       0.19 r
+  mult_0_b3/mult_22/U338/ZN (XNOR2_X1)                    0.07       0.26 r
+  mult_0_b3/mult_22/U347/ZN (NAND2_X1)                    0.03       0.29 f
+  mult_0_b3/mult_22/U346/Z (BUF_X1)                       0.04       0.33 f
+  mult_0_b3/mult_22/U398/ZN (OAI22_X1)                    0.05       0.38 r
+  mult_0_b3/mult_22/U56/S (HA_X1)                         0.04       0.42 f
+  mult_0_b3/mult_22/U349/ZN (INV_X1)                      0.03       0.45 r
+  mult_0_b3/mult_22/U471/ZN (OAI222_X1)                   0.05       0.51 f
+  mult_0_b3/mult_22/U316/ZN (NAND2_X1)                    0.04       0.55 r
+  mult_0_b3/mult_22/U289/ZN (NAND3_X1)                    0.04       0.58 f
+  mult_0_b3/mult_22/U283/ZN (NAND2_X1)                    0.03       0.61 r
+  mult_0_b3/mult_22/U262/ZN (AND3_X1)                     0.06       0.67 r
+  mult_0_b3/mult_22/U286/ZN (OAI222_X1)                   0.05       0.72 f
+  mult_0_b3/mult_22/U320/ZN (NAND2_X1)                    0.03       0.75 r
+  mult_0_b3/mult_22/U264/ZN (AND3_X1)                     0.05       0.81 r
+  mult_0_b3/mult_22/U314/ZN (OAI222_X1)                   0.06       0.86 f
+  mult_0_b3/mult_22/U239/ZN (NAND2_X1)                    0.04       0.90 r
+  mult_0_b3/mult_22/U241/ZN (NAND3_X1)                    0.04       0.95 f
+  mult_0_b3/mult_22/U305/ZN (NAND2_X1)                    0.04       0.98 r
+  mult_0_b3/mult_22/U307/ZN (NAND3_X1)                    0.04       1.02 f
+  mult_0_b3/mult_22/U293/ZN (NAND2_X1)                    0.04       1.06 r
+  mult_0_b3/mult_22/U281/ZN (NAND3_X1)                    0.04       1.10 f
+  mult_0_b3/mult_22/U298/ZN (NAND2_X1)                    0.04       1.14 r
+  mult_0_b3/mult_22/U257/ZN (NAND3_X1)                    0.04       1.18 f
+  mult_0_b3/mult_22/U270/ZN (NAND2_X1)                    0.03       1.21 r
+  mult_0_b3/mult_22/U243/ZN (NAND3_X1)                    0.04       1.25 f
+  mult_0_b3/mult_22/U246/ZN (NAND2_X1)                    0.03       1.29 r
+  mult_0_b3/mult_22/U249/ZN (NAND3_X1)                    0.04       1.33 f
+  mult_0_b3/mult_22/U254/ZN (NAND2_X1)                    0.04       1.37 r
+  mult_0_b3/mult_22/U256/ZN (NAND3_X1)                    0.04       1.42 f
+  mult_0_b3/mult_22/U354/ZN (NAND2_X1)                    0.04       1.46 r
+  mult_0_b3/mult_22/U355/ZN (NAND3_X1)                    0.04       1.50 f
+  mult_0_b3/mult_22/U359/ZN (NAND2_X1)                    0.03       1.53 r
+  mult_0_b3/mult_22/U361/ZN (NAND3_X1)                    0.03       1.57 f
+  mult_0_b3/mult_22/U287/ZN (XNOR2_X1)                    0.06       1.62 f
+  mult_0_b3/mult_22/U371/ZN (XNOR2_X1)                    0.05       1.68 f
+  mult_0_b3/mult_22/product[18] (multiplier_NBIT10_29_DW_mult_tc_0)
+                                                          0.00       1.68 f
+  mult_0_b3/res[9] (multiplier_NBIT10_29)                 0.00       1.68 f
+  pipe0_mult_3/d[9] (reg_NBIT10_59)                       0.00       1.68 f
+  pipe0_mult_3/U24/ZN (NAND2_X1)                          0.03       1.71 r
+  pipe0_mult_3/U3/ZN (NAND2_X1)                           0.02       1.73 f
+  pipe0_mult_3/q_reg[9]/D (DFFR_X1)                       0.01       1.74 f
+  data arrival time                                                  1.74
+
+  clock my_clk (rise edge)                                1.85       1.85
+  clock network delay (ideal)                             0.00       1.85
+  clock uncertainty                                      -0.07       1.78
+  pipe0_mult_3/q_reg[9]/CK (DFFR_X1)                      0.00       1.78 r
+  library setup time                                     -0.04       1.74
+  data required time                                                 1.74
+  --------------------------------------------------------------------------
+  data required time                                                 1.74
+  data arrival time                                                 -1.74
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

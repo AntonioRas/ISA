@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : area
+Design : FIR_unfolding_pipeline2_filter
+Version: O-2018.06-SP4
+Date   : Sun Nov 21 03:23:31 2021
+****************************************
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /software/dk/nangate45/synopsys/NangateOpenCellLibrary_typical_ecsm_nowlm.db)
+
+Number of ports:                         6202
+Number of nets:                         17722
+Number of cells:                         9807
+Number of combinational cells:           8768
+Number of sequential cells:               792
+Number of macros/black boxes:               0
+Number of buf/inv:                       1111
+Number of references:                     157
+
+Combinational area:              15177.162058
+Buf/Inv area:                      657.020001
+Noncombinational area:            4213.440136
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                 19390.602194
+Total area:                 undefined
+1
