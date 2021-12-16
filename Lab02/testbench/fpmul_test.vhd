@@ -40,7 +40,7 @@ begin
   uut: FPmul port map (FP_A,FP_B,clk,FP_Z);
   clk <= not clk after 1 ns;
 
-  read <= '0', '1' after 12 ns;
+  read <= '0', '1' after 12 ns; -- 10 ns with original stage 2
 
   read_proc: process(clk, read)
 			 file fp: text open read_mode is "./fp_prod.hex";
