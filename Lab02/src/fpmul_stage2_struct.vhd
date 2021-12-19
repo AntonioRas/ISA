@@ -12,6 +12,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.std_logic_arith.all;
+use work.dadda_lib.all;
 
 ENTITY FPmul_stage2 IS
    PORT( 
@@ -59,6 +60,11 @@ USE ieee.std_logic_arith.all;
 ARCHITECTURE struct OF FPmul_stage2 IS
 
    -- Architecture declarations
+    component dadda 
+		port(
+			a, b	:	in	std_logic_vector(N-1 downto 0);
+			x		:	out	std_logic_vector(2*N-1 downto 0));
+	end component;
 
    -- Internal signal declarations
    SIGNAL EXP_in_int  : std_logic_vector(7 DOWNTO 0);
@@ -146,13 +152,15 @@ BEGIN
    END PROCESS I4combo;
 
    -- ModuleWare code(v1.1) for instance 'I2' of 'mult'
-   I2combo : PROCESS (A_SIG, B_SIG)
-   VARIABLE dtemp : unsigned(63 DOWNTO 0);
-   BEGIN
-      dtemp := (unsigned(A_SIG) * unsigned(B_SIG));
-      prod <= std_logic_vector(dtemp);
-   END PROCESS I2combo;
+   --I2combo : PROCESS (A_SIG, B_SIG)
+   --VARIABLE dtemp : unsigned(63 DOWNTO 0);
+   --BEGIN
+   --   dtemp := (unsigned(A_SIG) * unsigned(B_SIG));
+   --   prod <= std_logic_vector(dtemp);
+   --END PROCESS I2combo;
 
+   mul: dadda port map (a => A_SIG, b => B_SIG, x => prod);
+ 
    -- ModuleWare code(v1.1) for instance 'I6' of 'vdd'
    dout <= '1';
 
