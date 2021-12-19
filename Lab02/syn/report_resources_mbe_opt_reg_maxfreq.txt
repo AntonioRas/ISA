@@ -1,0 +1,56 @@
+ 
+****************************************
+Report : resources
+Design : FPmul
+Version: O-2018.06-SP4
+Date   : Sun Dec 19 05:33:19 2021
+****************************************
+
+Resource Sharing Report for design FPmul in file
+        ../src/fpmul_stage1_struct.vhd
+
+===============================================================================
+|          |              |            | Contained     |                      |
+| Resource | Module       | Parameters | Resources     | Contained Operations |
+===============================================================================
+| r463     | I2_add_150_2_DP_OP_288_7755 |  |          | I2/add_150           |
+| r465     | I2_add_150_2_DP_OP_288_7755 |  |          | I2/add_150_2         |
+| r467     | DW01_add     | width=64   |               | I2/mul/add_755       |
+| r469     | DW01_inc     | width=25   |               | I3/I11/add_45        |
+| r471     | DW01_add     | width=8    |               | I3/I9/add_41_aco     |
+| r473     | DW01_add     | width=8    |               | I4/I1/add_41_aco     |
+===============================================================================
+
+Datapath Report for design FPmul in file ../src/fpmul_stage1_struct.vhd 
+
+RTL-datapath Connections for I2_add_150_2_DP_OP_288_7755-str
+====================================================================
+|                      |                      |            | Bus   |
+| RTL Wire             | Datapath Port        | Direction  | Width |
+====================================================================
+| A_EXP                | I1                   | input      | 8     |
+| B_EXP                | I2                   | input      | 8     |
+| I2/mw_I4sum          | O5                   | output     | 8     |
+====================================================================
+
+
+Datapath Blocks in I2_add_150_2_DP_OP_288_7755-str
+===============================================================================
+|            | Out   |                           | Contained      | Operation |
+| Port       | Width | Datapath Block            | Operation_Line | Type      |
+===============================================================================
+| O5         | 8     | I1 + I2 + 1               | I2/add_150_2   | UNSIGNED  |
+|            |       |                           | I2/add_150     | UNSIGNED  |
+===============================================================================
+
+
+Implementation Report
+===============================================================================
+|                    |                  | Current            | Set            |
+| Cell               | Module           | Implementation     | Implementation |
+===============================================================================
+| I2/mul/add_755     | DW01_add         | pparch (area,speed)                 |
+| I3/I11/add_45      | DW01_inc         | pparch (area,speed)                 |
+===============================================================================
+
+1
