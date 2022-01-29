@@ -22,6 +22,7 @@ entity execute_stage is
            alu_ctrl : IN  std_logic_vector(  2 downto 0);
              ALUSrc : IN  std_logic;
              regDst : IN  std_logic;
+              RFImm : IN  std_logic;
            -- outputs
              result : OUT std_logic_vector(N-1 downto 0);
              PC_out : OUT std_logic_vector(N-1 downto 0);
@@ -77,5 +78,8 @@ ALU_C : alu   generic map ( N )
 
 MX2_C : mux21 generic map ( N )
                  port map ( reg_dest1, reg_dest2, regDst, dest);
+                 
+MX3_C : mux21 generic map ( N )
+                 port map ( operand_2, immediate, RFImm, b_out );
 
 end beh;
