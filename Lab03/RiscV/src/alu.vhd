@@ -89,8 +89,9 @@ SHF_C : shifter    generic map ( N )
                       port map ( A, B(4 downto 0), shift_o);
 
 MUX_C : mux61      generic map ( N )
-                      port map ( add_o, shift_o, logic_o, compare_o, imm_zero_s, abs_s, sel_op(2 downto 1), res); 
-imm_zero_s <= B + '0';
+                      --port map ( add_o, shift_o, logic_o, compare_o, imm_zero_s, abs_s, sel_op(2 downto 1), res); 
+                      port map ( add_o, shift_o, logic_o, compare_o, imm_zero_s, abs_s, sel_op(2 downto 0), res); 
+--imm_zero_s <= B + '0';
 abs_s <= (others => '0');
 
 end structural;

@@ -5,7 +5,7 @@ use std.textio.all;
 use ieee.std_logic_textio.all;
 
 -- Simple ROM taking its values from a file
-entity rom is
+entity imem is
 	generic (
 		N: integer := 32; -- data bit width
 		A: integer := 32; -- address bit width
@@ -16,9 +16,9 @@ entity rom is
 		address: in std_logic_vector(A-1 downto 0);
 		data: out std_logic_vector(N-1 downto 0)
 	);
-end rom;
+end imem;
 
-architecture behavioral of rom is
+architecture behavioral of imem is
 
 type mem_arr is array (0 to W) of std_logic_vector(N-1 downto 0);
 

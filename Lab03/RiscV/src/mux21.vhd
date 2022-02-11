@@ -19,13 +19,8 @@ end mux21;
 architecture Behavioral of mux21 is
 begin
 
-mux : process(op1, op2, sel)
-      begin
-        case sel is
-            when '0' => 
-                        res <= op1;
-            when '1' =>
-                        res <= op2;
-        end case;
-      end process;
+      res <= op1 when(sel = '0') else
+             op2 when(sel = '1') ;
+
+
 end Behavioral;

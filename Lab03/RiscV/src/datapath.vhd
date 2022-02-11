@@ -17,44 +17,20 @@ entity datapath is
 	port (
 		clk: in std_logic;
 		rst: in std_logic;
-
 		-- CU interface
-
-		-- IF stage
-
-		-- IF/ID
-		--ifid_rst: in std_logic; -- driven by hdu
-		--ifid_pipe_regs_en: in std_logic; -- driven by hdu
-
 		-- ID stage
 		id_instr_type_sel: in std_logic_vector(2 downto 0); -- see constants to check 
         id_rd1_en, id_rd2_en : in std_logic;
 		id_rf_en : in std_logic;
         id_rf_wr : in std_logic;
-
         id_stall : out std_logic;
-
-		-- ID/EXE
-		--idexe_rst: in std_logic;
-		--idexe_pipe_regs_en: in std_logic;
-
 		-- EXE stage
 		exe_b_sel: in std_logic;
 		exe_sel_op: in std_logic_vector(2 downto 0);
 		exe_branch_enable: in std_logic; -- if set to 1 enables the possibility to jump
-
-		-- EXE/MEM
-		--exemem_rst: in std_logic;
-		--exemem_pipe_regs_en: in std_logic;
-
 		-- MEM stage
         mem_en : in std_logic;
         mem_rw_in : in std_logic;
-
-		-- MEM/WB
-		--memwb_rst: in std_logic;
-		--memwb_pipe_regs_en: in std_logic;
-
 		-- WB stage
 		wb_data_sel: in std_logic;
 
@@ -63,7 +39,7 @@ entity datapath is
 		imem_instr: in std_logic_vector(NDATA-1 downto 0);
 
 		-- D-MEM interface
-        dmem_rw, dram_en : out std_logic;
+        dmem_rw, dmem_en : out std_logic;
 		dmem_datain: in std_logic_vector(NDATA-1 downto 0);
 		dmem_dataout: out std_logic_vector(NDATA-1 downto 0);
 		dmem_address: out std_logic_vector(NADDR-1 downto 0)
@@ -81,7 +57,7 @@ architecture struct of datapath is
             pc_en: in std_logic;
             pc_sel : in std_logic;
             target_exe_stage : in std_logic_vector(NDATA-1 downto 0);
-            instr : in std_logic_vector(NDATA-1 downto 0)
+            instr : in std_logic_vector(NDATA-1 downto 0);
             --output
             address : out std_logic_vector(NADDR-1 downto 0);
             pc : out std_logic_vector(NDATA-1 downto 0);
@@ -232,14 +208,14 @@ architecture struct of datapath is
             load_data_in: in std_logic_vector(NDATA-1 downto 0);
             alu_data_in: in std_logic_vector(NDATA-1 downto 0);
             rd_in: in std_logic_vector(REG_SIZE-1 downto 0);
-            cu_signal_in : in std_logic_vector(at_WB_SIGNALS-1 downto 0); 
+            cu_signal_in : in std_logic_vector(at_WB_SIGNALS downto 0); 
     
             memwb_pipe_regs_en : in std_logic;
     
             load_data_out: out std_logic_vector(NDATA-1 downto 0);
             alu_data_out: out std_logic_vector(NDATA-1 downto 0);
             rd_out: out std_logic_vector(REG_SIZE-1 downto 0);
-            cu_signal_out : in std_logic_vector(at_WB_SIGNALS-1 downto 0)
+            cu_signal_out : in std_logic_vector(at_WB_SIGNALS downto 0)
         );
     end component mem_wb_pipe_regs;
 
@@ -252,7 +228,7 @@ architecture struct of datapath is
             datain1 : in std_logic_vector(NDATA-1 downto 0);
             rd_in : in std_logic_vector(REG_SIZE-1 downto 0);
             -- output
-            dataout : out std_logic_vector(NDATA-1 downto 0):
+            dataout : out std_logic_vector(NDATA-1 downto 0);
             rd_out : in std_logic_vector(REG_SIZE-1 downto 0) );
     end component wb_stage;
 
@@ -279,8 +255,8 @@ architecture struct of datapath is
     signal target_address_from_exe_stage : std_logic_vector(NDATA-1 downto 0);
     signal if_pc_out, if_instr_out : std_logic_vector(NDATA-1 downto 0);
     -- IF/ID 
-    signal ifid_pc_out : out std_logic_vector(NDATA-1 downto 0);
-    signal ifid_instr_out : out std_logic_vector(NDATA-1 downto 0);
+    signal ifid_pc_out : std_logic_vector(NDATA-1 downto 0);
+    signal ifid_instr_out : std_logic_vector(NDATA-1 downto 0);
     -- DECODE
     signal id_pc_out, id_rf_rp1_out, id_rf_rp2_out, id_imm_out: std_logic_vector(NDATA-1 downto 0);
     signal id_rs1_out, id_rs2_out, id_rd_out : std_logic_vector(REG_SIZE-1 downto 0); 
@@ -309,7 +285,7 @@ begin
     -- FETCH STAGE --
     fetch_stage_inst :
     fetch_stage generic map( NADDR, NDATA) 
-                port map ( clk, rst, pc_en_from_hdu, pc_sel_from_exe_stage, target_address_from_exe_stage, 
+                port map ( clk, rst, pc_en_from_hdu, pc_sel, target_address_from_exe_stage, 
                            imem_instr, imem_address, if_pc_out, if_instr_out );
 
     if_id_pipeline_registers_inst :
@@ -328,7 +304,7 @@ begin
 
     idexe_en_from_hdu <= '1';
     id_exe_pipeline_registers_inst :
-    id_exe_pipe_regs generic map (NDATA, REG_SIZE);
+    id_exe_pipe_regs generic map (NDATA, REG_SIZE)
         port map ( clk, rst, id_pc_out, id_rf_rp1_out, id_rf_rp2_out, id_imm_out, id_rd_out, idexe_cu_signals_in, 
                    idexe_en_from_hdu, 
                    idexe_pc_out, idexe_a_out, idexe_b_out, idexe_imm_out, idexe_rd_out, idexe_cu_signals_out );

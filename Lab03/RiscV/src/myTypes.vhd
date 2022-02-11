@@ -60,6 +60,6 @@ package myTypes is
     constant UTYPE_AUIPC : std_logic_vector(OP_CODE_SIZE - 1 downto 0) :=  "0010111";   -- AUIPC
      
     --NOP
-    constant NOP        : std_logic_vector(OP_CODE_SIZE - 1 downto 0) :=  "010101"; -- NOP
+    constant NOP        : std_logic_vector(OP_CODE_SIZE - 1 downto 0) :=  "0010011"; -- NOP
     
 end myTypes;

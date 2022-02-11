@@ -20,23 +20,25 @@ end hdu;
 architecture beh of hdu is
 
 begin
-
-    if (id_instr_type = R_INSTR_TYPE or id_instr_type = S_INSTR_TYPE or id_instr_type = B_INSTR_TYPE) then -- instruction uses both registers
-			if (((id_rs1 = idexe_rd and idexe_rd /= "00000") or (id_rs1 = exemem_rd and exemem_rd /= "00000") or (id_rs1 = memwb_rd and exemem_rd /= "00000") or (id_rs2 = idexe_rd and idexe_rd /= "00000") or (id_rs2 = exemem_rd and exemem_rd /= "00000") or (id_rs2 = memwb_rd and exemem_rd /= "00000")) and exe_taken = '0') then
-				stall_out <= '1'; -- force NOP
+    process(idexe_rd, exemem_rd, memwb_rd, id_rs1, id_rs2)
+    begin
+        if (id_instr_type = R_INSTR_TYPE or id_instr_type = S_INSTR_TYPE or id_instr_type = B_INSTR_TYPE) then -- instruction uses both registers
+            if (((id_rs1 = idexe_rd and idexe_rd /= "00000") or (id_rs1 = exemem_rd and exemem_rd /= "00000") or (id_rs1 = memwb_rd and exemem_rd /= "00000") or (id_rs2 = idexe_rd and idexe_rd /= "00000") or (id_rs2 = exemem_rd and exemem_rd /= "00000") or (id_rs2 = memwb_rd and exemem_rd /= "00000")) and exe_taken = '0') then
+                stall_out <= '1'; -- force NOP
                 if_pc_en <= '0';
                 ifid_en <= '0';
-			end if;
-		elsif (id_instr_type = I_INSTR_TYPE) then
-			if (((id_rs1 = idexe_rd and idexe_rd /= "00000") or (id_rs1 = exemem_rd and exemem_rd /= "00000") or (id_rs1 = exemem_rd and memwb_rd /= "00000")) and exe_taken = '0') then
-				stall_out <= '1'; -- force NOP
+            end if;
+        elsif (id_instr_type = I_INSTR_TYPE) then
+            if (((id_rs1 = idexe_rd and idexe_rd /= "00000") or (id_rs1 = exemem_rd and exemem_rd /= "00000") or (id_rs1 = exemem_rd and memwb_rd /= "00000")) and exe_taken = '0') then
+                stall_out <= '1'; -- force NOP
                 if_pc_en <= '0';
                 ifid_en <= '0';
-			end if;
+            end if;
         else
             stall_out <= '0'; -- force NOP
             if_pc_en <= '1';
             ifid_en <= '1';
-		end if;
+        end if;
+    end process;
 
 end beh;

@@ -10,7 +10,8 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 entity wb_stage is
-    generic( NDATA : integer := 32 );
+    generic( NDATA : integer := 32 ;
+             REG_SIZE : integer := 5 );
        port( -- inputs
              -- control signals
              mem_to_reg : in std_logic;
@@ -18,7 +19,7 @@ entity wb_stage is
              datain1 : in std_logic_vector(NDATA-1 downto 0);
              rd_in : in std_logic_vector(REG_SIZE-1 downto 0);
              -- output
-             dataout : out std_logic_vector(NDATA-1 downto 0):
+             dataout : out std_logic_vector(NDATA-1 downto 0);
              rd_out : in std_logic_vector(REG_SIZE-1 downto 0) );
 end wb_stage;
 

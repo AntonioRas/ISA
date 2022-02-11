@@ -8,7 +8,7 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;
-USE IEEE.numeric_std;
+USE IEEE.numeric_std.all;
 
 entity fetch_stage is
     generic( NADDR : integer := 32 ;
@@ -19,7 +19,7 @@ entity fetch_stage is
         pc_en: in std_logic;
         pc_sel : in std_logic;
         target_exe_stage : in std_logic_vector(NDATA-1 downto 0);
-        instr : in std_logic_vector(NDATA-1 downto 0)
+        instr : in std_logic_vector(NDATA-1 downto 0);
         --output
         address : out std_logic_vector(NADDR-1 downto 0);
         pc : out std_logic_vector(NDATA-1 downto 0);
@@ -59,19 +59,19 @@ architecture struct of fetch_stage is
         );
     end component reg;
 
-    signal adder_out, mux_out, pc_out, four_value : std_logic_vector(NADDR-1 downto 0);
+    signal adder_out, mux_out, pc_out, four_value : std_logic_vector(NDATA-1 downto 0);
 
 begin
 
     instr_loaded <= instr;
 
-    pc_reg: reg generic map(NADDR) port map(clk, rst, pc_en, mux_out, pc_out);
+    pc_reg: reg generic map(NDATA) port map(clk, rst, pc_en, mux_out, pc_out);
 
-    mux_to_pc : mux21 generic map(NADDR) port map(adder_out, target_exe_stage, pc_sel, mux_out);
+    mux_to_pc : mux21 generic map(NDATA) port map(adder_out, target_exe_stage, pc_sel, mux_out);
 
-    four_value <= std_logic_vector(to_unsigned(4, NADDR));
+    four_value <= std_logic_vector(to_unsigned(4, NDATA));
 
-    adder_pc : adder generic map(NADDR) port map(pc_out, four_value, adder_out);
+    adder_pc : adder generic map(NDATA) port map(pc_out, four_value, '0', adder_out);
 
     pc <= pc_out;
 

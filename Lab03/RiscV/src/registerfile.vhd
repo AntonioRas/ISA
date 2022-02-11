@@ -16,13 +16,13 @@ entity register_file is
           add_rd2:  in std_logic_vector(REG_SIZE-1 downto 0);
           datain:   in std_logic_vector(NBIT-1 downto 0);
           out1:     out std_logic_vector(NBIT-1 downto 0);
-	        out2:     out std_logic_vector(NBIT-1 downto 0));
+	      out2:     out std_logic_vector(NBIT-1 downto 0));
 end register_file;
 
 architecture beh of register_file is
 
       -- suggested structures
-      subtype REG_ADDR is natural range 0 to 2**NREG-1; -- using natural type
+      subtype REG_ADDR is natural range 0 to 2**REG_SIZE-1; -- using natural type
       type REG_ARRAY is array(REG_ADDR) of std_logic_vector(NBIT-1 downto 0); 
 	    signal REGISTERS : REG_ARRAY:=(others=>(others=>'0')); 
 	
@@ -36,7 +36,7 @@ begin
           REGISTERS<=(others=>(others=>'0'));
       elsif rising_edge(CLK) then
 
-          if(en = '1' and rf_wr = '1') then
+          if(rf_en = '1' and rf_wr = '1') then
               REGISTERS(to_integer(unsigned(add_wr))) <= datain;
           end if;
 

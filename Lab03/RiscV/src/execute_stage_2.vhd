@@ -59,20 +59,20 @@ architecture beh of execute_stage is
                         res : OUT std_logic_vector(N-1 downto 0));
       end component;
 
-      signal imm_op2, mux_out, imm_shift : std_logic_vector (N-1 downto 0);
+      signal imm_op2, mux_out, imm_shift : std_logic_vector (NDATA-1 downto 0);
       signal zero : std_logic;
 
 begin
       -- compute address destination when jump/branch instruction is fetched
-      ADD_C : adder generic map ( N )
+      ADD_C : adder generic map ( NDATA )
                      port map ( PC, imm_shift, '0', pc_out );
                      
-      imm_shift <= imm(N-2 downto 0) & '0';
+      imm_shift <= imm(NDATA-2 downto 0) & '0';
                      
-      MX1_C : mux21 generic map ( N )
-                     port map ( operand_2, imm, b_sel, imm_op2);
+      MX1_C : mux21 generic map ( NDATA )
+                     port map ( b, imm, b_sel, imm_op2);
 
-      ALU_C : alu   generic map ( N )
+      ALU_C : alu   generic map ( NDATA )
                      port map ( a, imm_op2, sel_op, zero, res); 
 
       reg_out <= b;

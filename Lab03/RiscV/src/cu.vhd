@@ -14,21 +14,22 @@ use work.myTypes.all;
 
 entity cu is
     port (    -- INPUTS
-              Rst      	 : IN  std_logic;   -- Active Low              
+              Rst      	 : IN  std_logic;   -- Active high             
               OPCODE  	 : IN  std_logic_vector(OP_CODE_SIZE - 1 downto 0);
               FUNC    	 : IN  std_logic_vector(  FUNC3_SIZE - 1 downto 0);
-              zero     	 : IN  std_logic;
+              --zero     	 : IN  std_logic;
               -- FETCH
-			  PCenable 	 : OUT std_logic;	-- enable reg PC
-              --DECODE
-			  RD1en,RD2en: OUT std_logic;	-- read enable
-			  RFen, RFwr : OUT std_logic;   -- rf enable, write enable (regWrite)
-			  instr_type : OUT std_logic_vector (2 downto 0); -- instr type for sign extend
-              --EXECUTE
-			  ALUSrc     : OUT std_logic;   --select second operand alu )b_sel
-              ALUctrl 	 : OUT std_logic_vector(3 downto 0); -- DECODER SIGNAL ALU
-			  branch_en	 : OUT std_logic;
-			  jump_en	 : OUT std_logic;
+              --PCenable 	 : OUT std_logic;	-- enable reg PC
+                    --DECODE
+              RD1en,RD2en: OUT std_logic;	-- read enable
+              RFen, RFwr : OUT std_logic;   -- rf enable, write enable (regWrite)
+              instr_type : OUT std_logic_vector (2 downto 0); -- instr type for sign extend
+              stall : in std_logic;
+                    --EXECUTE
+              ALUSrc     : OUT std_logic;   --select second operand alu )b_sel
+              ALUctrl 	 : OUT std_logic_vector(2 downto 0); -- DECODER SIGNAL ALU
+              branch_en	 : OUT std_logic;
+              jump_en	 : OUT std_logic;
               --MEMORY
               MemEn		 : OUT std_logic; -- ENABLE MEMORY 
               MemRW 	 : OUT std_logic; -- 0 ENABLE READ PORT, 1 ENABLE WRITE PORT OF DATA MEMORY STAGE
@@ -38,7 +39,7 @@ end cu;
 
 architecture Behavioral of cu is
     signal branch : std_logic;
-    constant MICROCODE_MEM_SIZE : integer := 28; -- number of possible operations
+    constant MICROCODE_MEM_SIZE : integer := 29; -- number of possible operations
     constant CW_SIZE : integer := 17; -- number of output control signals
   
   type mem_array is array (integer range 0 to MICROCODE_MEM_SIZE - 1) of std_logic_vector(CW_SIZE - 1 downto 0);
@@ -79,20 +80,24 @@ architecture Behavioral of cu is
 begin
     process(OPCODE, FUNC, rst)
        begin
-        if (rst = '0') then
+        if (rst = '1') then
             cw <= (OTHERS => '0');
         end if;
         
          case conv_integer(OPCODE(2)) is
          -- from analysys of opcodes and func of all the instructions: if opcode(3) is 1 - no need of func
          -- no need also to look at opcode (1 downto 0) because it is equal to all the implemented functions
-         
-		        when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + 1); 
-                when others => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(FUNC)); 
+            when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + 1); 
+            
+            when others => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(FUNC)); 
          end case;
+
+         if(stall = '1') then
+          cw <= "00000000000000000";
+         end if;
   end process;
   
-  PCenable       <= CW(CW_SIZE - 1);
+  --PCenable       <= CW(CW_SIZE - 1);
   RD1en    		 <= CW(CW_SIZE - 2);
   RD2en      	 <= CW(CW_SIZE - 3);
   RFen      	 <= CW(CW_SIZE - 4);

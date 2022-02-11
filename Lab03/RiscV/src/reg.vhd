@@ -17,9 +17,9 @@ end reg;
 architecture beh of reg is
 
 begin
-	clk_proc: process(rst_n, clk)
+	clk_proc: process(rst, clk)
 	begin
-		if (rst_n = '1') then
+		if (rst = '1') then
 			q <= (others => '0');
 		elsif (clk = '1' and clk'event) then
 			if (en = '1') then

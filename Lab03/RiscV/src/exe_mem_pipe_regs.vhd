@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.ALL;
+use work.constants.all;
 
 entity exe_mem_pipe_regs is
     generic (NDATA : integer := 32 ;
@@ -18,7 +19,7 @@ entity exe_mem_pipe_regs is
 		alu_data_out: out std_logic_vector(NDATA-1 downto 0);
 		reg_data_out: out std_logic_vector(NDATA-1 downto 0);
 		rd_out: out std_logic_vector(REG_SIZE-1 downto 0);
-        cu_signal_out : in std_logic_vector(at_MEM_SIGNALS-1 downto 0)
+        cu_signal_out : out std_logic_vector(at_MEM_SIGNALS-1 downto 0)
 	);
 end exe_mem_pipe_regs;
 

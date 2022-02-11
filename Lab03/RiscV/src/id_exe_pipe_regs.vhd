@@ -24,7 +24,7 @@ entity id_exe_pipe_regs is
 		b_out: out std_logic_vector(NDATA-1 downto 0);
 		imm_out: out std_logic_vector(NDATA-1 downto 0);
 		rd_out: out std_logic_vector(REG_SIZE-1 downto 0);
-        cu_signal_out : in std_logic_vector(at_EX_SIGNALS-1 downto 0)
+        cu_signal_out : out std_logic_vector(at_EX_SIGNALS-1 downto 0)
 	);
 end id_exe_pipe_regs;
 

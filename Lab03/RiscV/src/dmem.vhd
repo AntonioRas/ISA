@@ -5,7 +5,7 @@ use std.textio.all;
 use ieee.std_logic_textio.all;
 
 -- Single port RAM
-entity ram is
+entity dmem is
 	generic (
 		N: integer := 32; -- data bit width
 		A: integer := 32; -- address bit width
@@ -20,9 +20,9 @@ entity ram is
 		datain: in std_logic_vector(N-1 downto 0);
 		dataout: out std_logic_vector(N-1 downto 0)
 	);
-end ram;
+end dmem;
 
-architecture behavioral of ram is
+architecture behavioral of dmem is
 	type mem is array(0 to W) of std_logic_vector(N-1 downto 0);
 	constant start_data_address : integer := D mod W; 
 
@@ -38,7 +38,7 @@ begin
 			if (rst = '1') then
 				curr_mem <= (others => (others => '0'));
 				i := start_data_address;
-				file_open(fp, F, read_mode);
+				file_open(fp, "./mem.txt", read_mode);
 				while not endfile(fp) loop
 					readline(fp, l);
 					hread(l, tmp);
