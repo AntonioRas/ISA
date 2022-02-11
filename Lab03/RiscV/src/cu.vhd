@@ -14,62 +14,64 @@ use work.myTypes.all;
 
 entity cu is
     port (    -- INPUTS
-              Rst      : IN  std_logic;   -- Active Low              
-              OPCODE   : IN  std_logic_vector(OP_CODE_SIZE - 1 downto 0);
-              FUNC     : IN  std_logic_vector(  FUNC3_SIZE - 1 downto 0);
-              zero     : IN  std_logic;
+              Rst      	 : IN  std_logic;   -- Active Low              
+              OPCODE  	 : IN  std_logic_vector(OP_CODE_SIZE - 1 downto 0);
+              FUNC    	 : IN  std_logic_vector(  FUNC3_SIZE - 1 downto 0);
+              zero     	 : IN  std_logic;
               -- FETCH
-              PCSrc    : OUT std_logic;   -- Sel mux on Program Counter
+			  PCenable 	 : OUT std_logic;	-- enable reg PC
               --DECODE
-              RegWrite : OUT std_logic;   -- ENABLE WRITE PORT OF RF COMING FROM WRITEBACK ---- TO DO IN DATAPATH
+			  RD1en,RD2en: OUT std_logic;	-- read enable
+			  RFen, RFwr : OUT std_logic;   -- rf enable, write enable (regWrite)
+			  instr_type : OUT std_logic_vector (2 downto 0); -- instr type for sign extend
               --EXECUTE
-              RegDst   : OUT std_logic;   --select destination register
-   --???????           -- RFImm    : OUT std_logic;   --select destination register
-              ALUSrc   : OUT std_logic;   --select second operand alu
-              ALUctrl  : OUT std_logic_vector(3 downto 0); -- DECODER SIGNAL ALU
+			  ALUSrc     : OUT std_logic;   --select second operand alu )b_sel
+              ALUctrl 	 : OUT std_logic_vector(3 downto 0); -- DECODER SIGNAL ALU
+			  branch_en	 : OUT std_logic;
+			  jump_en	 : OUT std_logic;
               --MEMORY
-              MemWrite : OUT std_logic; -- ENABLE WRITE PORT OF DATA MEMORY STAGE
-              MemRead  : OUT std_logic; -- ENABLE READ PORT OF DATA MEMORY STAGE
+              MemEn		 : OUT std_logic; -- ENABLE MEMORY 
+              MemRW 	 : OUT std_logic; -- 0 ENABLE READ PORT, 1 ENABLE WRITE PORT OF DATA MEMORY STAGE
               --WB
-              MemToReg : OUT std_logic); -- SEL OF MUX IN WRITEBACK STAGE           
+              MemToReg	 : OUT std_logic); -- SEL OF MUX IN WRITEBACK STAGE           
 end cu;
 
 architecture Behavioral of cu is
     signal branch : std_logic;
     constant MICROCODE_MEM_SIZE : integer := 28; -- number of possible operations
-    constant CW_SIZE : integer := 10; -- number of output control signals
+    constant CW_SIZE : integer := 17; -- number of output control signals
   
   type mem_array is array (integer range 0 to MICROCODE_MEM_SIZE - 1) of std_logic_vector(CW_SIZE - 1 downto 0);
   signal cw_mem : mem_array := (--R-TYPE IN INCRESING  ORDER OF FUNC VALUE
-                                "01000000011",  -- LW
-                                "00000000000",  -- FUNC 0x01
-                                "00000000000",  -- FUNC 0x02
-                                "00000000000",  -- FUNC 0x03
-                                "01001000000",  -- ADDI
-                                "00000000000",  -- FUNC 0x05
-                                "11000000000",  -- AUIPC
-                                "00000000000",  -- FUNC 0X07
-                                "00000000000",  -- FUNC 0x08
-                                "01001110000",  -- SRAI
-                                "00000000101",  -- SW
-                                "01001010000",  -- ANDI
-                                "01000000000",  -- ADD
-                                "0100",  -- LUI
-                                "0000000000",  -- SLT
-                                "0000000000",  -- FUNC 0x0F
-                                "0000000000",  -- XOR 
-                                "0000000000",  -- FUNC 0x11
-                                "0000000000",  -- FUNC 0x12
-                                "0000000000",  -- FUNC 0x13
-                                "0000000000",  -- FUNC 0x14
-                                "0000000000",  -- FUNC 0x15
-                                "0000000000",  -- FUNC 0x16
-                                "0000000000",  -- FUNC 0x17
-                                "0000000000",  -- BEQ
-                                "0000000000",  -- FUNC 0x19
-                                "0000000000",  -- FUNC 0x1A
-                                "0000000000",  -- FUNC 0x1B
-                                "0000000000"); -- JAL 
+                                "11011001100000101",  -- LW
+                                "00000000000000000",  -- FUNC 0x01
+                                "00000000000000000",  -- FUNC 0x02
+                                "00000000000000000",  -- FUNC 0x03
+                                "11011001100000000",  -- ADDI
+                                "00000000000000000",  -- FUNC 0x05
+                                "11010100100011000",  -- AUIPC
+                                "00000000000000000",  -- FUNC 0X07
+                                "00000000000000000",  -- FUNC 0x08
+                                "11011001100100000",  -- SRAI
+                                "11111010100000110",  -- SW
+                                "11011001101000000",  -- ANDI
+                                "11111000000000000",  -- ADD
+                                "11111100111000000",  -- LUI
+                                "11111000010100000",  -- SLT
+                                "00000000000000000",  -- FUNC 0x0F
+                                "11111000001100000",  -- XOR 
+                                "00000000000000000",  -- FUNC 0x11
+                                "00000000000000000",  -- FUNC 0x12
+                                "00000000000000000",  -- FUNC 0x13
+                                "00000000000000000",  -- FUNC 0x14
+                                "00000000000000000",  -- FUNC 0x15
+                                "00000000000000000",  -- FUNC 0x16
+                                "00000000000000000",  -- FUNC 0x17
+                                "11110011110010000",  -- BEQ
+                                "00000000000000000",  -- FUNC 0x19
+                                "00000000000000000",  -- FUNC 0x1A
+                                "00000000000000000",  -- FUNC 0x1B
+                                "11010101100011000"); -- JAL 
                          
   -- signals
   signal cw : std_logic_vector(CW_SIZE -1 downto 0);
@@ -90,13 +92,18 @@ begin
          end case;
   end process;
   
-  PCSrc       <= CW(CW_SIZE - 1);
-  RegWrite    <= CW(CW_SIZE - 2);
-  RegDst      <= CW(CW_SIZE - 3);
-  ALUSrc      <= CW(CW_SIZE - 4);
-  ALUctrl     <= CW(CW_SIZE - 5 downto CW_SIZE - 7);
-  MemWrite    <= CW(CW_SIZE - 8);
-  MemRead     <= CW(CW_SIZE - 9);
-  MemToReg    <= CW(CW_SIZE - 10);
+  PCenable       <= CW(CW_SIZE - 1);
+  RD1en    		 <= CW(CW_SIZE - 2);
+  RD2en      	 <= CW(CW_SIZE - 3);
+  RFen      	 <= CW(CW_SIZE - 4);
+  RFwr     		 <= CW(CW_SIZE - 5);
+  instr_type     <= CW(CW_SIZE - 6 downto CW_SIZE - 8);
+  ALUSrc      	 <= CW(CW_SIZE - 9);
+  ALUctrl  		 <= CW(CW_SIZE - 10 downto CW_SIZE - 12);
+  branch_en      <= CW(CW_SIZE - 13);
+  jump_en		 <= CW(CW_SIZE - 14);
+  MemEn			 <= CW(CW_SIZE - 15);
+  MemRW			 <= CW(CW_SIZE - 16);
+  MemToReg		 <= CW(CW_SIZE - 17);
 
 end Behavioral;
