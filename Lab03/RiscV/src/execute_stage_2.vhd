@@ -10,12 +10,14 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 entity execute_stage is
-   generic (NDATA : integer := 32 );
+   generic (NDATA : integer := 32 ;
+           REG_SIZE : integer := 5);
 	port (
 		pc: in std_logic_vector(NDATA-1 downto 0); 
 		a: in std_logic_vector(NDATA-1 downto 0);
 		b: in std_logic_vector(NDATA-1 downto 0);
 		imm: in std_logic_vector(NDATA-1 downto 0);
+      rd_in : in std_logic_vector(REG_SIZE-1 downto 0);
 
 		b_sel: in std_logic;
 		sel_op : in std_logic_vector(2 downto 0);
@@ -24,6 +26,7 @@ entity execute_stage is
 		res: out std_logic_vector(NDATA-1 downto 0);
 		reg_out: out std_logic_vector(NDATA-1 downto 0);
 		pc_out: out std_logic_vector(NDATA-1 downto 0);
+      rd_out : out std_logic_vector(REG_SIZE-1 downto 0);
 		pc_sel: out std_logic -- used by the IF stage to determine which PC must be used
 	);
 end execute_stage;
@@ -76,6 +79,8 @@ begin
                      port map ( a, imm_op2, sel_op, zero, res); 
 
       reg_out <= b;
+
+      rd_out <= rd_in;
 
       pc_sel <= '1' when ( zero = '1' and branch_enable = '1' ) else
                 '0';

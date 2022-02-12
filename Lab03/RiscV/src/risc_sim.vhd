@@ -6,9 +6,9 @@ entity riscv_sim is
         NDATA : integer := 32 ;
         NADDR : integer := 32 ;
         REG_SIZE : integer := 5;
-		A_ROM: integer := 8; -- address bit width
+		A_ROM: integer := 32; -- address bit width
 		W_ROM: integer := 256; -- number of words
-		A_RAM: integer := 8; -- address bit width
+		A_RAM: integer := 32; -- address bit width
 		W_RAM: integer := 256; -- number of words
         D_RAM: integer := 0
 	);
@@ -86,13 +86,11 @@ begin
         port map ( clk, rst, imem_instr_s, imem_address_s, dmem_en_s, dmem_rw_s, dmem_datain_s, dmem_dataout_s, dmem_address_s );
 
     imem_inst :
-    imem generic map ( NDATA, A_ROM, W_ROM )
-        port map ( rst, imem_address_s, imem_instr_s );
+    imem generic map ( NDATA, A_ROM-2, W_ROM )
+        port map ( rst, imem_address_s(A_ROM-1 downto 2), imem_instr_s );
     
     dmem_inst :
     dmem generic map ( NDATA, A_RAM, W_RAM, D_RAM )
-        port map ( clk, rst, dmem_address_s, dmem_rw_s,dmem_en_s, dmem_datain_s, dmem_dataout_s );
-       
-
+        port map ( clk, rst, dmem_address_s(A_RAM-1 downto 0), dmem_rw_s, dmem_en_s, dmem_datain_s, dmem_dataout_s );
 
 end struct;

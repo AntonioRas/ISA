@@ -20,7 +20,7 @@ entity wb_stage is
              rd_in : in std_logic_vector(REG_SIZE-1 downto 0);
              -- output
              dataout : out std_logic_vector(NDATA-1 downto 0);
-             rd_out : in std_logic_vector(REG_SIZE-1 downto 0) );
+             rd_out : out std_logic_vector(REG_SIZE-1 downto 0) );
 end wb_stage;
 
 architecture struct of wb_stage is
@@ -34,5 +34,7 @@ architecture struct of wb_stage is
 begin
 
     mux_wb: mux21 generic map(NDATA) port map(datain0, datain1, mem_to_reg, dataout);
+
+    rd_out <= rd_in;
 
 end struct;

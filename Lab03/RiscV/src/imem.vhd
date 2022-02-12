@@ -32,7 +32,7 @@ begin
 		variable tmp: std_logic_vector(N-1 downto 0);
 	begin
 		if (rst = '1') then
-			file_open(fp, "./instr.txt", read_mode);
+			file_open(fp, "./instructions.txt", read_mode);
 			while not endfile(fp) loop
 				readline(fp, l);
 				hread(l, tmp);

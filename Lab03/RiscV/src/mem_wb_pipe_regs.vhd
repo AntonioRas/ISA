@@ -12,14 +12,14 @@ entity mem_wb_pipe_regs is
 		load_data_in: in std_logic_vector(NDATA-1 downto 0);
 		alu_data_in: in std_logic_vector(NDATA-1 downto 0);
 		rd_in: in std_logic_vector(REG_SIZE-1 downto 0);
-        cu_signal_in : in std_logic_vector(at_WB_SIGNALS downto 0); 
+        cu_signal_in : in std_logic_vector(at_WB_SIGNALS-1 downto 0); 
 
 		memwb_pipe_regs_en : in std_logic;
 
 		load_data_out: out std_logic_vector(NDATA-1 downto 0);
 		alu_data_out: out std_logic_vector(NDATA-1 downto 0);
 		rd_out: out std_logic_vector(REG_SIZE-1 downto 0);
-        cu_signal_out : out std_logic_vector(at_WB_SIGNALS downto 0)
+        cu_signal_out : out std_logic_vector(at_WB_SIGNALS-1 downto 0)
 	);
 end mem_wb_pipe_regs;
 

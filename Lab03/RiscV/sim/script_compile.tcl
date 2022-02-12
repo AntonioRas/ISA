@@ -11,6 +11,7 @@ vcom -93 -work ./work ../src/comparator.vhd
 vcom -93 -work ./work ../src/shifter.vhd
 vcom -93 -work ./work ../src/alu.vhd
 vcom -93 -work ./work ../src/registerfile.vhd
+vcom -93 -work ./work ../src/immediate_ext.vhd
 vcom -93 -work ./work ../src/fetch_stage.vhd
 vcom -93 -work ./work ../src/if_id_pipe_regs.vhd
 vcom -93 -work ./work ../src/decode_stage.vhd
@@ -27,3 +28,8 @@ vcom -93 -work ./work ../src/imem.vhd
 vcom -93 -work ./work ../src/dmem.vhd
 vcom -93 -work ./work ../src/core.vhd
 vcom -93 -work ./work ../src/risc_sim.vhd
+
+# compile the testbench code
+vcom -93 -work ./work ../tb/TB_RISCV.vhd
+
+vsim -t 10ps work.tb_riscv

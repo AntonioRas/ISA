@@ -11,7 +11,8 @@ use IEEE.std_logic_1164.all;
 
 entity mem_stage is
     generic( NADDR : integer := 32 ;
-             NDATA : integer := 32 );
+             NDATA : integer := 32 ;
+             REG_SIZE : integer := 5);
     port( 
         --input
         clk, rst : in std_logic;
@@ -20,11 +21,11 @@ entity mem_stage is
         data_to_mem_in : in std_logic_vector(NDATA-1 downto 0);
         data_from_mem_in : in std_logic_vector(NDATA-1 downto 0);
         address_to_mem_in : in std_logic_vector(NADDR-1 downto 0);
-        rd_in : in std_logic_vector(4 downto 0);
+        rd_in : in std_logic_vector(REG_SIZE-1 downto 0);
         --output
         mem_en_out : out std_logic;
         mem_rw_out : out std_logic;
-        rd_out : out std_logic_vector(4 downto 0);
+        rd_out : out std_logic_vector(REG_SIZE-1 downto 0);
         mem_address : out std_logic_vector(NADDR-1 downto 0);
         data_mem_out : out std_logic_vector(NDATA-1 downto 0);
 

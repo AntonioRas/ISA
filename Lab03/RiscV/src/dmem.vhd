@@ -38,7 +38,7 @@ begin
 			if (rst = '1') then
 				curr_mem <= (others => (others => '0'));
 				i := start_data_address;
-				file_open(fp, "./mem.txt", read_mode);
+				file_open(fp, "./data.txt", read_mode);
 				while not endfile(fp) loop
 					readline(fp, l);
 					hread(l, tmp);

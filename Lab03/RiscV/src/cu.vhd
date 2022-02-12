@@ -50,7 +50,8 @@ architecture Behavioral of cu is
                                 "00000000000000000",  -- FUNC 0x03
                                 "11011001100000000",  -- ADDI
                                 "00000000000000000",  -- FUNC 0x05
-                                "11010100100011000",  -- AUIPC
+                                --"11010100100011000",  -- AUIPC
+                                "11011100100000000",  -- AUIPC
                                 "00000000000000000",  -- FUNC 0X07
                                 "00000000000000000",  -- FUNC 0x08
                                 "11011001100100000",  -- SRAI
@@ -78,22 +79,24 @@ architecture Behavioral of cu is
   signal cw : std_logic_vector(CW_SIZE -1 downto 0);
   
 begin
-    process(OPCODE, FUNC, rst)
+    process(OPCODE, FUNC, stall, rst)
        begin
         if (rst = '1') then
             cw <= (OTHERS => '0');
-        end if;
-        
-         case conv_integer(OPCODE(2)) is
-         -- from analysys of opcodes and func of all the instructions: if opcode(3) is 1 - no need of func
-         -- no need also to look at opcode (1 downto 0) because it is equal to all the implemented functions
-            when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + 1); 
-            
-            when others => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(FUNC)); 
-         end case;
+        else
 
-         if(stall = '1') then
-          cw <= "00000000000000000";
+            if(stall = '1') then
+              cw <= (others => '0');
+            elsif(OPCODE /= "0000000") then
+                case conv_integer(OPCODE(2)) is
+                  -- from analysys of opcodes and func of all the instructions: if opcode(3) is 1 - no need of func
+                  -- no need also to look at opcode (1 downto 0) because it is equal to all the implemented functions
+                      when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + 1); 
+                      
+                      when others => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(FUNC)); 
+                  end case;
+            end if;
+
          end if;
   end process;
   

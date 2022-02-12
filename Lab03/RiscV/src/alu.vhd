@@ -75,13 +75,14 @@ architecture structural of alu is
 begin
 
 ADD_C : adder      generic map ( N )
-                      port map ( A, B, '0', add_o );
+                      port map ( A, B, '0', add_o);
                  
 LOG_C : logic      generic map ( N )
                       port map ( A, B, sel_op(0), logic_o);
 
 CMP_C : comparator generic map ( N )
                       port map ( A, B, sel_op(0), tmp_cmp);
+
 compare_o <= (0 => tmp_cmp, others => '0');
      zero <= tmp_cmp;
 
@@ -91,7 +92,7 @@ SHF_C : shifter    generic map ( N )
 MUX_C : mux61      generic map ( N )
                       --port map ( add_o, shift_o, logic_o, compare_o, imm_zero_s, abs_s, sel_op(2 downto 1), res); 
                       port map ( add_o, shift_o, logic_o, compare_o, imm_zero_s, abs_s, sel_op(2 downto 0), res); 
---imm_zero_s <= B + '0';
+imm_zero_s <= B;
 abs_s <= (others => '0');
 
 end structural;

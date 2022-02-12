@@ -50,6 +50,7 @@ architecture struct of core is
                         exe_b_sel: in std_logic;
                         exe_sel_op: in std_logic_vector(2 downto 0);
                         exe_branch_enable: in std_logic; -- if set to 1 enables the possibility to jump
+                        exe_jump_enable: in std_logic; -- if set to 1 enables the possibility to jump
                         -- MEM stage
                         mem_en : in std_logic;
                         mem_rw_in : in std_logic;
@@ -59,6 +60,8 @@ architecture struct of core is
                         -- I-MEM interface
                         imem_address: out std_logic_vector(NADDR-1 downto 0);
                         imem_instr: in std_logic_vector(NDATA-1 downto 0);
+
+                        instr: out std_logic_vector(NDATA-1 downto 0);
 
                         -- D-MEM interface
                         dmem_rw, dmem_en : out std_logic;
@@ -85,7 +88,7 @@ architecture struct of core is
                       ALUSrc     : OUT std_logic;   --select second operand alu )b_sel
                       ALUctrl 	 : OUT std_logic_vector(2 downto 0); -- DECODER SIGNAL ALU
                       branch_en	 : OUT std_logic;
-                      --jump_en	 : OUT std_logic;
+                      jump_en	 : OUT std_logic;
                       --MEMORY
                       MemEn		 : OUT std_logic; -- ENABLE MEMORY 
                       MemRW 	 : OUT std_logic; -- 0 ENABLE READ PORT, 1 ENABLE WRITE PORT OF DATA MEMORY STAGE
@@ -97,12 +100,14 @@ architecture struct of core is
         signal id_instr_type_sel: std_logic_vector(2 downto 0); -- see constants to check 
         signal id_rd1_en, id_rd2_en, id_rf_en, id_rf_wr, id_stall :  std_logic;
         -- EXE stage
-        signal exe_b_sel, exe_branch_enable: std_logic;
+        signal exe_b_sel, exe_branch_enable, exe_jump_enable: std_logic;
         signal exe_sel_op: std_logic_vector(2 downto 0);
         -- MEM stage
         signal mem_en, mem_rw_in : std_logic;
         -- WB stage
         signal wb_data_sel: std_logic;
+
+        signal instr_s : std_logic_vector(31 downto 0);
 
 
 begin
@@ -110,16 +115,16 @@ begin
       datapath_inst :
       datapath generic map (NDATA, NADDR, REG_SIZE)
               port map ( clk, rst, id_instr_type_sel, id_rd1_en, id_rd2_en, id_rf_en, id_rf_wr, id_stall, 
-                         exe_b_sel, exe_sel_op, exe_branch_enable, 
+                         exe_b_sel, exe_sel_op, exe_branch_enable, exe_jump_enable, 
                          mem_en, mem_rw_in, 
                          wb_data_sel, 
-                         imem_address, imem_instr, 
+                         imem_address, imem_instr, instr_s, 
                          dmem_rw, dmem_en, dmem_datain, dmem_dataout, dmem_address );
 
       cu_inst :
-      cu port map ( rst, imem_instr(OP_CODE_SIZE - 1 downto 0), imem_instr(FUNC3_SIZE + 12 - 1 downto 12), 
+      cu port map ( rst, instr_s(OP_CODE_SIZE - 1 downto 0), instr_s(FUNC3_SIZE + 12 - 1 downto 12), 
                     id_rd1_en, id_rd2_en, id_rf_en, id_rf_wr, id_instr_type_sel, id_stall, 
-                    exe_b_sel, exe_sel_op, exe_branch_enable, 
+                    exe_b_sel, exe_sel_op, exe_branch_enable, exe_jump_enable, 
                     mem_en, mem_rw_in, 
                     wb_data_sel );
                       

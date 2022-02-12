@@ -24,7 +24,7 @@ begin
 	immediate_out <= 	msb(19 downto 0) & instr(31 downto 20)                                                when instr_type_sel = I_INSTR_TYPE else
 				        msb(19 downto 0) & instr(31 downto 25) & instr(11 downto 7)                           when instr_type_sel = S_INSTR_TYPE else
 				        msb(19 downto 0) & instr(31) & instr(7) & instr(30 downto 25) & instr(11 downto 8)    when instr_type_sel = B_INSTR_TYPE else
-				        instr(31 downto 12) & zeros                                                           when instr_type_sel = U_INSTR_TYPE else
+				        zeros & instr(31 downto 12)                                                           when instr_type_sel = U_INSTR_TYPE else
 				        msb(11 downto 0) & instr(31) & instr(19 downto 12) & instr(20) & instr(30 downto 21)  when instr_type_sel = J_INSTR_TYPE else
 				        (others => '0');
 
