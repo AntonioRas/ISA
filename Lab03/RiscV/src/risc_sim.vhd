@@ -10,7 +10,7 @@ entity riscv_sim is
 		W_ROM: integer := 256; -- number of words
 		A_RAM: integer := 32; -- address bit width
 		W_RAM: integer := 256; -- number of words
-        D_RAM: integer := 0
+        D_RAM: integer := 64524
 	);
 	port (
 		clk: in std_logic;
@@ -91,6 +91,6 @@ begin
     
     dmem_inst :
     dmem generic map ( NDATA, A_RAM, W_RAM, D_RAM )
-        port map ( clk, rst, dmem_address_s(A_RAM-1 downto 0), dmem_rw_s, dmem_en_s, dmem_datain_s, dmem_dataout_s );
+        port map ( clk, rst, dmem_address_s(A_RAM-1 downto 0), dmem_rw_s, '1', dmem_dataout_s, dmem_datain_s );
 
 end struct;

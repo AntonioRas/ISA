@@ -320,10 +320,11 @@ begin
     mem_stage generic map ( NADDR, NDATA, REG_SIZE)
         port map ( clk, rst, exemem_cu_signals_out(at_MEM_SIGNALS-1), exemem_cu_signals_out(at_MEM_SIGNALS-2),
                    exemem_reg_data_out, dmem_datain, exemem_alu_data_out, exemem_rd_out, dmem_en, dmem_rw, mem_rd_out, dmem_address, dmem_dataout, 
-                   mem_reg_out, mem_stage_data_out );
+                  mem_reg_out, mem_stage_data_out );
 
     --memwb_cu_signals_in <= exemem_cu_signals_out(0) & exemem_cu_signals_out(0);
     memwb_cu_signals_in <= exemem_cu_signals_out(at_WB_SIGNALS-1 downto 0);
+
 
     mem_wb_pipeline_registers_inst :
     mem_wb_pipe_regs generic map (NDATA, REG_SIZE)

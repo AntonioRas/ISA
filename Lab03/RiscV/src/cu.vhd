@@ -36,14 +36,14 @@ end cu;
 
 architecture Behavioral of cu is
     signal branch : std_logic;
-    constant MICROCODE_MEM_SIZE : integer := 30; -- number of possible operations
+    constant MICROCODE_MEM_SIZE : integer := 29; -- number of possible operations
     constant CW_SIZE : integer := 13; -- number of output control signals
   
   type mem_array is array (integer range 0 to MICROCODE_MEM_SIZE - 1) of std_logic_vector(CW_SIZE - 1 downto 0);
   signal cw_mem : mem_array := (--R-TYPE IN INCRESING  ORDER OF FUNC VALUE
                                 "0011000001011",  -- LW
                                 "0000000000000",  -- FUNC 0x01
-                                "0000000000000",  -- FUNC 0x02
+                                "0011000001011",  -- FUNC 0x02
                                 "0000000000000",  -- FUNC 0x03
                                 "0011000000010",  -- ADDI
                                 "0000000000000",  -- FUNC 0x05
@@ -56,7 +56,7 @@ architecture Behavioral of cu is
                                 "0011010000010",  -- ANDI
                                 "0000000000010",  -- ADD
                                 "1001110000010",  -- LUI
-                                "1001110000010",  -- LUI
+                                --"1001110000010",  -- LUI
                                 "0000101000010",  -- SLT
                                 "0000000000000",  -- FUNC 0x0F
                                 "0000011000010",  -- XOR 
@@ -85,7 +85,7 @@ begin
             case conv_integer(OPCODE(2)) is
               -- from analysys of opcodes and func of all the instructions: if opcode(3) is 1 - no need of func
               -- no need also to look at opcode (1 downto 0) because it is equal to all the implemented functions
-                  when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + 1); 
+                  when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(1)); 
                   
                   when others => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(FUNC)); 
               end case;

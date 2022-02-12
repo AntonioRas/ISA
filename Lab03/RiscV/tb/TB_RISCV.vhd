@@ -18,7 +18,7 @@ architecture test of tb_riscv is
 		W_ROM: integer := 256; -- number of words
 		A_RAM: integer := 32; -- address bit width
 		W_RAM: integer := 256; -- number of words
-        D_RAM: integer := 0
+        D_RAM: integer := 64524
 	);
 	port (
 		clk: in std_logic;
@@ -40,7 +40,7 @@ begin
 			W_ROM => 256,
 			A_RAM => 10,
 			W_RAM => 1024,
-			D_RAM => 16781312
+			D_RAM => 64524
 		)
 		port map (
 			clk => clk,
