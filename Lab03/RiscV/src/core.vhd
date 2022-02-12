@@ -42,19 +42,16 @@ architecture struct of core is
                         -- CU interface
                         -- ID stage
                         id_instr_type_sel: in std_logic_vector(2 downto 0); -- see constants to check 
-                        id_rd1_en, id_rd2_en : in std_logic;
-                        id_rf_en : in std_logic;
-                        id_rf_wr : in std_logic;
-                        id_stall : out std_logic;
                         -- EXE stage
                         exe_b_sel: in std_logic;
                         exe_sel_op: in std_logic_vector(2 downto 0);
                         exe_branch_enable: in std_logic; -- if set to 1 enables the possibility to jump
-                        exe_jump_enable: in std_logic; -- if set to 1 enables the possibility to jump
+                        exe_jump_enable: in std_logic;
                         -- MEM stage
                         mem_en : in std_logic;
                         mem_rw_in : in std_logic;
                         -- WB stage
+                        wb_rf_wr : in std_logic;
                         wb_data_sel: in std_logic;
 
                         -- I-MEM interface
@@ -79,20 +76,19 @@ architecture struct of core is
                       --zero     	 : IN  std_logic;
                       -- FETCH
                       --PCenable 	 : OUT std_logic;	-- enable reg PC
-                            --DECODE
-                      RD1en,RD2en: OUT std_logic;	-- read enable
-                      RFen, RFwr : OUT std_logic;   -- rf enable, write enable (regWrite)
+                            --DECODERFwr : OUT std_logic;   -- rf enable, write enable (regWrite)
                       instr_type : OUT std_logic_vector (2 downto 0); -- instr type for sign extend
-                      stall : in std_logic;
                             --EXECUTE
                       ALUSrc     : OUT std_logic;   --select second operand alu )b_sel
                       ALUctrl 	 : OUT std_logic_vector(2 downto 0); -- DECODER SIGNAL ALU
                       branch_en	 : OUT std_logic;
                       jump_en	 : OUT std_logic;
+
                       --MEMORY
                       MemEn		 : OUT std_logic; -- ENABLE MEMORY 
                       MemRW 	 : OUT std_logic; -- 0 ENABLE READ PORT, 1 ENABLE WRITE PORT OF DATA MEMORY STAGE
                       --WB
+                      RFwr : out std_logic;
                       MemToReg	 : OUT std_logic); -- SEL OF MUX IN WRITEBACK STAGE           
         end component cu;
 
@@ -105,7 +101,7 @@ architecture struct of core is
         -- MEM stage
         signal mem_en, mem_rw_in : std_logic;
         -- WB stage
-        signal wb_data_sel: std_logic;
+        signal wb_data_sel, wb_rf_wr: std_logic;
 
         signal instr_s : std_logic_vector(31 downto 0);
 
@@ -114,18 +110,18 @@ begin
 
       datapath_inst :
       datapath generic map (NDATA, NADDR, REG_SIZE)
-              port map ( clk, rst, id_instr_type_sel, id_rd1_en, id_rd2_en, id_rf_en, id_rf_wr, id_stall, 
-                         exe_b_sel, exe_sel_op, exe_branch_enable, exe_jump_enable, 
+              port map ( clk, rst, id_instr_type_sel, 
+                         exe_b_sel, exe_sel_op, exe_branch_enable, exe_jump_enable,  
                          mem_en, mem_rw_in, 
-                         wb_data_sel, 
+                         wb_rf_wr, wb_data_sel, 
                          imem_address, imem_instr, instr_s, 
                          dmem_rw, dmem_en, dmem_datain, dmem_dataout, dmem_address );
 
       cu_inst :
       cu port map ( rst, instr_s(OP_CODE_SIZE - 1 downto 0), instr_s(FUNC3_SIZE + 12 - 1 downto 12), 
-                    id_rd1_en, id_rd2_en, id_rf_en, id_rf_wr, id_instr_type_sel, id_stall, 
+                    id_instr_type_sel,  
                     exe_b_sel, exe_sel_op, exe_branch_enable, exe_jump_enable, 
                     mem_en, mem_rw_in, 
-                    wb_data_sel );
+                    wb_rf_wr, wb_data_sel );
                       
 end struct;

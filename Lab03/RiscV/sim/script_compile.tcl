@@ -21,7 +21,6 @@ vcom -93 -work ./work ../src/exe_mem_pipe_regs.vhd
 vcom -93 -work ./work ../src/mem_stage.vhd
 vcom -93 -work ./work ../src/mem_wb_pipe_regs.vhd
 vcom -93 -work ./work ../src/wb_stage.vhd
-vcom -93 -work ./work ../src/hdu.vhd
 vcom -93 -work ./work ../src/datapath.vhd
 vcom -93 -work ./work ../src/cu.vhd
 vcom -93 -work ./work ../src/imem.vhd

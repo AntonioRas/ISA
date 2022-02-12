@@ -22,6 +22,7 @@ entity execute_stage is
 		b_sel: in std_logic;
 		sel_op : in std_logic_vector(2 downto 0);
 		branch_enable: in std_logic; -- if set to 1 enables the possibility to jump
+      jump_enable: in std_logic;
 
 		res: out std_logic_vector(NDATA-1 downto 0);
 		reg_out: out std_logic_vector(NDATA-1 downto 0);
@@ -82,7 +83,7 @@ begin
 
       rd_out <= rd_in;
 
-      pc_sel <= '1' when ( zero = '1' and branch_enable = '1' ) else
+      pc_sel <= '1' when ( (zero = '1' and branch_enable = '1' ) or jump_enable = '1' ) else
                 '0';
                      
 end beh;

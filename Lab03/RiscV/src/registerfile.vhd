@@ -28,15 +28,15 @@ architecture beh of register_file is
 	
 begin 
       -- write your RF code 
-      regFile: process(clk, rst)
+      regFile: process(clk, rst, rd1, rd2, rf_en, rf_wr, add_wr, add_rd1, add_rd2)
       begin
       if (rst = '1') then
           out1<=(others=>'0'); 
           out2<=(others=>'0');
           REGISTERS<=(others=>(others=>'0'));
-      elsif rising_edge(CLK) then
+      elsif (clk='0' and clk'event) then
 
-          if(rf_en = '1' and rf_wr = '1') then
+          if(rf_en = '1' and rf_wr = '1' and add_wr/= "00000" ) then
               REGISTERS(to_integer(unsigned(add_wr))) <= datain;
           end if;
 
@@ -47,7 +47,9 @@ begin
           if (rd2 = '1'and rf_en = '1') then
               out2 <= REGISTERS(to_integer(unsigned(add_rd2)));
           end if;
+
       end if;
 end process;
+
 
 end beh;

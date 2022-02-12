@@ -12,7 +12,9 @@ package constants is
 	constant J_INSTR_TYPE: std_logic_vector(2 downto 0) := "101";
     -- numer of signal for each stage
     constant at_EX_SIGNALS : natural := 10;
-    constant at_MEM_SIGNALS : natural := 5;
-    constant at_WB_SIGNALS : natural := 3;
+    constant at_MEM_SIGNALS : natural := 4;
+    constant at_WB_SIGNALS : natural := 2;
+
+    constant nop_instr : std_logic_vector(31 downto 0) := x"00000013";
 
 end constants;
