@@ -67,7 +67,7 @@ architecture Behavioral of cu is
                                 "0000000000000",  -- FUNC 0x15
                                 "0000000000000",  -- FUNC 0x16
                                 "0000000000000",  -- FUNC 0x17
-                                "0111100100000",  -- BEQ
+                                "0110100100000",  -- BEQ
                                 "0000000000000",  -- FUNC 0x19
                                 "0000000000000",  -- FUNC 0x1A
                                 "0000000000000",  -- FUNC 0x1B
@@ -82,15 +82,18 @@ begin
         if (rst = '1') then
             cw <= (OTHERS => '0');
         elsif(OPCODE /= "0000000") then
-            case conv_integer(OPCODE(2)) is
-              -- from analysys of opcodes and func of all the instructions: if opcode(3) is 1 - no need of func
-              -- no need also to look at opcode (1 downto 0) because it is equal to all the implemented functions
-                  when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(1)); 
-                  
-                  when others => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(FUNC)); 
-              end case;
+            if (OPCODE = "0110111") then
+              cw <= "1001110000010";
+            else
+                  case conv_integer(OPCODE(2)) is
+                    -- from analysys of opcodes and func of all the instructions: if opcode(3) is 1 - no need of func
+                    -- no need also to look at opcode (1 downto 0) because it is equal to all the implemented functions
+                        when 1 => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(1)); 
+                        
+                        when others => cw <= cw_mem(conv_integer(OPCODE(OP_CODE_SIZE - 1 downto 2)) + conv_integer(FUNC)); 
+                    end case;
+            end if;
         end if;
-
   end process;
   
   
