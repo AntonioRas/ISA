@@ -1,0 +1,113 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'core' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : core
+Version: O-2018.06-SP4
+Date   : Tue Feb 15 01:29:16 2022
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: datapath_inst/id_exe_pipeline_registers_inst/cu_signal_regs/q_reg[9]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: datapath_inst/exe_mem_pipeline_registers_inst/alu_res_pipe_regs/q_reg[31]
+            (rising edge-triggered flip-flop clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  core               5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  datapath_inst/id_exe_pipeline_registers_inst/cu_signal_regs/q_reg[9]/CK (DFFR_X1)
+                                                          0.00       0.00 r
+  datapath_inst/id_exe_pipeline_registers_inst/cu_signal_regs/q_reg[9]/QN (DFFR_X1)
+                                                          0.08       0.08 f
+  U3005/Z (BUF_X2)                                        0.06       0.14 f
+  U6666/ZN (AOI22_X1)                                     0.07       0.21 r
+  U6667/ZN (INV_X1)                                       0.03       0.23 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/B[12] (core_DW01_add_2)
+                                                          0.00       0.23 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U369/ZN (NAND2_X1)
+                                                          0.04       0.27 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U448/ZN (OAI21_X1)
+                                                          0.04       0.31 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U428/ZN (AOI21_X1)
+                                                          0.04       0.35 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U468/ZN (OAI21_X1)
+                                                          0.04       0.39 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U277/ZN (AOI21_X1)
+                                                          0.06       0.45 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U466/ZN (OAI21_X1)
+                                                          0.03       0.48 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U282/ZN (AOI21_X1)
+                                                          0.04       0.52 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U456/ZN (OAI21_X1)
+                                                          0.03       0.55 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U276/ZN (AOI21_X1)
+                                                          0.04       0.59 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U461/ZN (OAI21_X1)
+                                                          0.03       0.63 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U274/ZN (AOI21_X1)
+                                                          0.04       0.67 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U453/ZN (OAI21_X1)
+                                                          0.03       0.70 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U278/ZN (AOI21_X1)
+                                                          0.04       0.74 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U465/ZN (OAI21_X1)
+                                                          0.03       0.78 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U283/ZN (AOI21_X1)
+                                                          0.04       0.82 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U471/ZN (OAI21_X1)
+                                                          0.03       0.85 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U6/CO (FA_X1)
+                                                          0.10       0.95 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U244/ZN (NAND2_X1)
+                                                          0.04       0.98 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U246/ZN (NAND3_X1)
+                                                          0.04       1.02 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U251/ZN (NAND2_X1)
+                                                          0.04       1.06 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U253/ZN (NAND3_X1)
+                                                          0.04       1.10 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U257/ZN (NAND2_X1)
+                                                          0.03       1.13 r
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U259/ZN (NAND3_X1)
+                                                          0.03       1.16 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/U266/ZN (XNOR2_X1)
+                                                          0.05       1.22 f
+  add_1_root_datapath_inst/execute_stage_inst/ALU_C/ADD_C/add_29_2/SUM[31] (core_DW01_add_2)
+                                                          0.00       1.22 f
+  U6764/ZN (AOI22_X1)                                     0.04       1.26 r
+  U6765/ZN (INV_X1)                                       0.02       1.28 f
+  datapath_inst/exe_mem_pipeline_registers_inst/alu_res_pipe_regs/q_reg[31]/D (DFFRS_X1)
+                                                          0.01       1.29 f
+  data arrival time                                                  1.29
+
+  clock my_clk (rise edge)                                1.40       1.40
+  clock network delay (ideal)                             0.00       1.40
+  clock uncertainty                                      -0.07       1.33
+  datapath_inst/exe_mem_pipeline_registers_inst/alu_res_pipe_regs/q_reg[31]/CK (DFFRS_X1)
+                                                          0.00       1.33 r
+  library setup time                                     -0.04       1.29
+  data required time                                                 1.29
+  --------------------------------------------------------------------------
+  data required time                                                 1.29
+  data arrival time                                                 -1.29
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

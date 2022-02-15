@@ -20,7 +20,7 @@ entity core is
             
             -- IMEM interface
             imem_instr: in std_logic_vector(NDATA-1 downto 0);
-            imem_address: out std_logic_vector(NDATA-1 downto 0);
+            imem_addr: out std_logic_vector(NADDR-1 downto 0);
             
             -- DMEM interface
             dmem_en : out std_logic;
@@ -114,12 +114,12 @@ begin
                          exe_b_sel, exe_sel_op, exe_branch_enable, exe_jump_enable,  
                          mem_en, mem_rw_in, 
                          wb_rf_wr, wb_data_sel, 
-                         imem_address, imem_instr, instr_s, 
+                         imem_addr, imem_instr, instr_s, 
                          dmem_rw, dmem_en, dmem_datain, dmem_dataout, dmem_address );
 
       cu_inst :
       cu port map ( rst, instr_s(OP_CODE_SIZE - 1 downto 0), instr_s(FUNC3_SIZE + 12 - 1 downto 12), 
-                    id_instr_type_sel,  
+                    id_instr_type_sel, 
                     exe_b_sel, exe_sel_op, exe_branch_enable, exe_jump_enable, 
                     mem_en, mem_rw_in, 
                     wb_rf_wr, wb_data_sel );

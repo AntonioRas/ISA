@@ -1,0 +1,6 @@
+Gate area 0.7980 um^2
+Level 0 Module core                                     Gates=     15452 Cells=    6079 Area=   12330.7 um^2
+Level 1 Module datapath_inst_execute_stage_inst_ALU_C_CMP_C_lt_36 Gates=120        Cells=104      Area=      96.0 um^2
+Level 1 Module add_1_root_datapath_inst_execute_stage_inst_ALU_C_ADD_C_add_29_2 Gates=254        Cells=207      Area=     202.7 um^2
+Level 1 Module datapath_inst_execute_stage_inst_ALU_C_ABS_C_sub_abs_23 Gates=139        Cells=112      Area=     110.9 um^2
+Level 1 Module add_1_root_datapath_inst_fetch_stage_inst_adder_pc_add_29_2 Gates=105        Cells=52       Area=      84.3 um^2
